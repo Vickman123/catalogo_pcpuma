@@ -19,6 +19,8 @@ import {
   Sparkles,
   Info,
   Sliders,
+  Image as ImageIcon,
+  Box,
 } from 'lucide-react';
 
 interface ProductDetailViewProps {
@@ -39,6 +41,7 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({
   allEquipment,
 }) => {
   const [activeTab, setActiveTab] = useState<'specs' | 'loan'>('specs');
+  const [mediaMode, setMediaMode] = useState<'3d' | 'photo'>('3d');
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [copiedNotification, setCopiedNotification] = useState<boolean>(false);
 
@@ -97,44 +100,80 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({
 
       {/* Main 2-Column Responsive Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: 3D Interactive Viewer (Sticky on Desktop) */}
+        {/* Left Column: Media Viewer (Sticky on Desktop) */}
         <div className="lg:col-span-6 xl:col-span-7 lg:sticky lg:top-24 space-y-4">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#002B7A]"></span>
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
-                  Visor 3D en tiempo real
-                </span>
+              {/* Media Switcher: 3D vs Photo */}
+              <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl">
+                <button
+                  onClick={() => setMediaMode('3d')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                    mediaMode === '3d'
+                      ? 'bg-[#002B7A] text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <Box className="w-3.5 h-3.5" />
+                  <span>Modelo 3D (360°)</span>
+                </button>
+                <button
+                  onClick={() => setMediaMode('photo')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                    mediaMode === 'photo'
+                      ? 'bg-[#002B7A] text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <ImageIcon className="w-3.5 h-3.5" />
+                  <span>Fotografía Real</span>
+                </button>
               </div>
+
               <span className="text-xs font-mono text-slate-500">
-                Archivo GLB oficial • Three.js WebGL
+                {mediaMode === '3d' ? 'Archivo GLB • Three.js' : 'Foto Oficial de Referencia'}
               </span>
             </div>
 
-            {/* 3D Model Viewer Component */}
-            <ModelViewer3D
-              modelPath={equipment.model3dPath}
-              modelName={equipment.name}
-              fileSize={equipment.modelFileSize}
-              brand={equipment.brand}
-            />
+            {/* Viewer Display */}
+            {mediaMode === '3d' ? (
+              <>
+                <ModelViewer3D
+                  modelPath={equipment.model3dPath}
+                  modelName={equipment.name}
+                  fileSize={equipment.modelFileSize}
+                  brand={equipment.brand}
+                />
 
-            {/* Quick 3D Interaction Guide Cards */}
-            <div className="grid grid-cols-3 gap-2 text-center">
-              <div className="bg-slate-50/80 p-2.5 rounded-xl border border-slate-100">
-                <span className="block text-[11px] font-bold text-slate-700">Girar 360°</span>
-                <span className="text-[10px] text-slate-500">Arrastra con el ratón o desliza</span>
+                {/* Quick 3D Interaction Guide Cards */}
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="bg-slate-50/80 p-2.5 rounded-xl border border-slate-100">
+                    <span className="block text-[11px] font-bold text-slate-700">Girar 360°</span>
+                    <span className="text-[10px] text-slate-500">Arrastra con el ratón o desliza</span>
+                  </div>
+                  <div className="bg-slate-50/80 p-2.5 rounded-xl border border-slate-100">
+                    <span className="block text-[11px] font-bold text-slate-700">Zoom Óptico</span>
+                    <span className="text-[10px] text-slate-500">Usa la rueda o los botones +/-</span>
+                  </div>
+                  <div className="bg-slate-50/80 p-2.5 rounded-xl border border-slate-100">
+                    <span className="block text-[11px] font-bold text-slate-700">Vistas Rápidas</span>
+                    <span className="text-[10px] text-slate-500">Frente, teclado, perfil</span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="relative w-full h-[460px] md:h-[540px] lg:h-[600px] rounded-2xl overflow-hidden border border-slate-200 bg-gradient-to-b from-slate-50 to-slate-100/50 flex flex-col items-center justify-center p-6 shadow-sm">
+                <img
+                  src={equipment.imagePath}
+                  alt={equipment.commercialName}
+                  className="max-h-[85%] max-w-full object-contain drop-shadow-xl rounded-xl transition-transform hover:scale-105 duration-300"
+                />
+                <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 shadow-xs flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+                  <span>Fotografía Oficial de Referencia PC PUMA</span>
+                </div>
               </div>
-              <div className="bg-slate-50/80 p-2.5 rounded-xl border border-slate-100">
-                <span className="block text-[11px] font-bold text-slate-700">Zoom Óptico</span>
-                <span className="text-[10px] text-slate-500">Usa la rueda o los botones +/-</span>
-              </div>
-              <div className="bg-slate-50/80 p-2.5 rounded-xl border border-slate-100">
-                <span className="block text-[11px] font-bold text-slate-700">Vistas Rápidas</span>
-                <span className="text-[10px] text-slate-500">Frente, teclado, perfil</span>
-              </div>
-            </div>
+            )}
           </div>
         </div>
 

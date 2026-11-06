@@ -125,6 +125,14 @@ export const EquipmentComparator: React.FC<EquipmentComparatorProps> = ({
                         </span>
                       </div>
 
+                      <div className="h-28 w-full bg-slate-100/70 rounded-xl p-2 flex items-center justify-center overflow-hidden border border-slate-200/60">
+                        <img
+                          src={eq.imagePath}
+                          alt={eq.commercialName}
+                          className="max-h-full max-w-full object-contain drop-shadow-sm"
+                        />
+                      </div>
+
                       <div>
                         <h4 className="text-base md:text-lg font-bold text-slate-900 font-heading">
                           {eq.commercialName}

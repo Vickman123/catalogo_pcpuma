@@ -54,57 +54,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </span>
         </div>
 
-        {/* Visual Mock / Dynamic 3D Thumbnail representation */}
-        <div className="relative w-full h-full flex flex-col items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <div className="relative flex flex-col items-center justify-center">
-            {isApple ? (
-              /* Apple MacBook Neo Conceptual Silhouette */
-              <div className="w-48 h-32 relative flex flex-col items-center justify-center">
-                {/* Screen Lid */}
-                <div className="w-44 h-28 rounded-t-xl bg-gradient-to-b from-slate-800 to-slate-950 p-2 shadow-2xl border-2 border-slate-700/80 flex flex-col items-center justify-center relative">
-                  <div className="w-full h-full rounded-lg bg-gradient-to-tr from-indigo-950 via-slate-900 to-cyan-950 flex items-center justify-center relative overflow-hidden">
-                    <div className="w-16 h-16 rounded-full bg-cyan-400/20 blur-xl"></div>
-                    <div className="text-[10px] font-mono tracking-widest text-cyan-300 font-medium">macOS Liquid</div>
-                  </div>
-                  {/* Subtle Apple Notch */}
-                  <div className="absolute top-2 w-6 h-1 bg-black rounded-b"></div>
-                </div>
-                {/* Base */}
-                <div className="w-52 h-3.5 bg-gradient-to-b from-slate-300 via-slate-400 to-slate-600 rounded-b-md shadow-lg border-t border-slate-400/50 flex justify-center">
-                  <div className="w-12 h-1 bg-slate-500 rounded-b-xs"></div>
-                </div>
-                {/* Contact shadow */}
-                <div className="w-44 h-3 bg-black/20 blur-md rounded-full mt-1"></div>
-              </div>
-            ) : (
-              /* Lenovo Chromebook 500e 2-in-1 Silhouette */
-              <div className="w-48 h-32 relative flex flex-col items-center justify-center">
-                {/* Screen Lid */}
-                <div className="w-40 h-28 rounded-t-xl bg-gradient-to-b from-zinc-800 to-zinc-950 p-2.5 shadow-2xl border-2 border-zinc-700 flex flex-col items-center justify-center relative">
-                  <div className="w-full h-full rounded bg-gradient-to-tr from-sky-900 via-slate-900 to-blue-900 flex flex-col items-center justify-center relative">
-                    <span className="text-[9px] font-semibold text-sky-200">ChromeOS 360°</span>
-                    <span className="text-[8px] text-zinc-400">Touch IPS 11.6"</span>
-                  </div>
-                  {/* Lenovo Rubber Bumper Corner hints */}
-                  <div className="absolute -top-1 -left-1 w-2.5 h-2.5 bg-zinc-900 border border-zinc-600 rounded-tl-md"></div>
-                  <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-zinc-900 border border-zinc-600 rounded-tr-md"></div>
-                </div>
-                {/* Base with 360 Hinge accent */}
-                <div className="w-46 h-4 bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-b-lg border-t-2 border-zinc-600 shadow-xl flex items-center justify-between px-3">
-                  <span className="w-3 h-1 bg-zinc-500 rounded"></span>
-                  <div className="w-8 h-1 bg-zinc-600 rounded"></div>
-                  <span className="w-3 h-1 bg-zinc-500 rounded"></span>
-                </div>
-                {/* Contact shadow */}
-                <div className="w-36 h-3 bg-black/25 blur-md rounded-full mt-1"></div>
-              </div>
-            )}
+        {/* Product Image Representation */}
+        <div className="relative w-full h-full flex items-center justify-center p-3 transition-transform duration-300 group-hover:scale-105">
+          <img
+            src={equipment.imagePath}
+            alt={equipment.commercialName}
+            className="max-h-48 max-w-full object-contain drop-shadow-md rounded-lg"
+            loading="lazy"
+          />
 
-            {/* Quick 360 Hover Pill */}
-            <div className="absolute inset-0 bg-slate-900/30 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl flex items-center justify-center gap-2 text-white font-medium text-xs">
-              <Eye className="w-4 h-4 text-[#CFA02C]" />
-              <span>Clic para abrir visor 3D</span>
-            </div>
+          {/* Quick 360 Hover Pill */}
+          <div className="absolute inset-0 bg-slate-900/35 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl flex items-center justify-center gap-2 text-white font-medium text-xs">
+            <Eye className="w-4 h-4 text-[#CFA02C]" />
+            <span>Clic para explorar en 3D</span>
           </div>
         </div>
 

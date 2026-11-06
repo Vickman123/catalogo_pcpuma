@@ -21,6 +21,7 @@ export interface Equipment {
   subCategory: string;
   tagline: string;
   description: string;
+  imagePath: string;
   model3dPath: string;
   modelFileSize: string;
   badges: string[];
