@@ -7,6 +7,8 @@ interface HeaderProps {
   selectedCount?: number;
 }
 
+const BASE = import.meta.env.BASE_URL;
+
 export const Header: React.FC<HeaderProps> = ({
   activeView,
   onNavigate,
@@ -50,14 +52,13 @@ export const Header: React.FC<HeaderProps> = ({
           onClick={() => onNavigate('catalog')}
           className="flex items-center gap-3 cursor-pointer group select-none"
         >
-          {/* Institutional Emblem / PC PUMA Badge Placeholder */}
-          <div className="relative w-11 h-11 rounded-xl bg-gradient-to-br from-[#002B7A] to-[#001B4E] p-0.5 shadow-sm group-hover:shadow transition-all flex items-center justify-center">
-            <div className="w-full h-full bg-[#002B7A] rounded-[10px] flex flex-col items-center justify-center text-white border border-[#CFA02C]/40">
-              <span className="text-[10px] font-black tracking-widest text-[#CFA02C]">PC</span>
-              <span className="text-[9px] font-extrabold -mt-1 tracking-wider text-white">PUMA</span>
-            </div>
-            {/* Subtle Gold Corner Accent */}
-            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#CFA02C] rounded-full border border-white"></div>
+          {/* Official PC PUMA Logo */}
+          <div className="relative h-11 w-11 md:h-12 md:w-12 rounded-xl bg-white border border-slate-200/90 p-1 shadow-xs group-hover:border-[#002B7A]/40 group-hover:shadow transition-all flex items-center justify-center overflow-hidden">
+            <img
+              src={`${BASE}images/pc-puma-logo.png`}
+              alt="Logo Oficial PC PUMA"
+              className="h-full w-full object-contain"
+            />
           </div>
 
           <div>
