@@ -110,11 +110,11 @@ export const EquipmentComparator: React.FC<EquipmentComparatorProps> = ({
             {/* Header: Products Cards in Table Header */}
             <thead>
               <tr className="border-b-2 border-slate-200 bg-slate-50/60">
-                <th className="p-4 md:p-6 w-1/4 font-bold text-slate-500 uppercase tracking-wider text-xs border-r border-slate-200 align-top">
+                <th className="p-4 md:p-6 min-w-[200px] w-1/4 font-bold text-slate-500 uppercase tracking-wider text-xs border-r border-slate-200 align-top">
                   Especificación
                 </th>
                 {comparedList.map((eq) => (
-                  <th key={eq.id} className="p-4 md:p-6 w-1/3 align-top border-r last:border-r-0 border-slate-200">
+                  <th key={eq.id} className="p-4 md:p-6 min-w-[240px] align-top border-r last:border-r-0 border-slate-200">
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-900 text-white">
@@ -208,7 +208,7 @@ export const EquipmentComparator: React.FC<EquipmentComparatorProps> = ({
             Criterios de Selección Tecnológica PC PUMA
           </h5>
           <p className="leading-relaxed">
-            Ambos equipos cubren requerimientos académicos universitarios específicos: la <strong>Lenovo Chromebook 500e</strong> ofrece máxima portabilidad, resistencia física contra caídas y versatilidad táctil para actividades formativas generales y ofimática; mientras que la <strong>Apple MacBook Neo</strong> proporciona aceleración gráfica y cálculo unificado para proyectos de artes, diseño, ingeniería y computación especializada.
+            Los equipos de cómputo y módulos de autopréstamo cubren requerimientos académicos y logísticos universitarios: las laptops portátiles (Chromebooks y MacBooks) ofrecen movilidad, autonomía y versatilidad táctil o de alto rendimiento para la comunidad académica, mientras que los <strong>Lockers de Autopréstamo PC Puma LC-01</strong> garantizan el resguardo físico blindado, recarga eléctrica programada y disponibilidad automatizada de los dispositivos en bibliotecas y planteles.
           </p>
         </div>
       </div>

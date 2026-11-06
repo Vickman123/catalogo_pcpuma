@@ -18,6 +18,7 @@ export function App() {
   const [comparedIds, setComparedIds] = useState<string[]>([
     'lenovo-chromebook-500e',
     'apple-macbook-neo',
+    'locker-autoprestamo-pcpuma',
   ]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -54,7 +55,8 @@ export function App() {
       const matchCategory =
         selectedCategory === 'all' ||
         (selectedCategory === 'chromebook' && item.id.includes('chromebook')) ||
-        (selectedCategory === 'macbook' && item.id.includes('macbook'));
+        (selectedCategory === 'macbook' && item.id.includes('macbook')) ||
+        (selectedCategory === 'locker' && item.id.includes('locker'));
 
       return matchSearch && matchCategory;
     });
@@ -154,11 +156,22 @@ export function App() {
                   >
                     MacBook Neo EC-03
                   </button>
+
+                  <button
+                    onClick={() => setSelectedCategory('locker')}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                      selectedCategory === 'locker'
+                        ? 'bg-[#002B7A] text-white shadow-xs'
+                        : 'text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    Locker de Autopréstamo LC-01
+                  </button>
                 </div>
               </div>
 
               {/* Products Cards Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredEquipment.map((equipment) => (
                   <ProductCard
                     key={equipment.id}

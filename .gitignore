@@ -26,3 +26,4 @@ dist-ssr
 # Root loose models (already tracked in public/models/)
 /Chromebook.glb
 /macbook_neo.glb
+models/ipad*.glb

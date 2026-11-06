@@ -43,6 +43,12 @@ Permite explorar los dispositivos mediante **modelos 3D interactivos en tiempo r
    - Pantalla Liquid Retina con amplia gama de color P3 (500 nits).
    - Chasis unibody de aluminio 100% reciclado y conectividad Thunderbolt / MagSafe 3.
    - macOS con suite de herramientas de desarrollo, artes visuales y cómputo científico.
+3. **Locker de Autopréstamo - PC Puma LC-01(2026):**
+   - Módulo automatizado de autoservicio para resguardo, préstamo y recarga de 20 computadoras portátiles.
+   - Fabricado en lámina de acero calibre 18 y base en PTR calibre 14 con acabado en pintura electrostática (azul y gris institucional).
+   - 20 compartimentos con ventanas de visualización y tomas de corriente independientes con PDU regulada (127 V, 15 A).
+   - Control eléctrico por interruptor general, temporizador para ciclos de carga y conectividad de red Ethernet.
+   - Modelo 3D interactivo real (Three.js / WebGL) y ficha técnica técnica completa.
 
 ---
 
