@@ -6,25 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catálogo Tecnológico PC PUMA – UNAM | Explorador 3D</title>
     <meta name="description" content="Catálogo interactivo de equipamiento tecnológico de PC PUMA – Universidad Nacional Autónoma de México con visor 3D en tiempo real y fichas técnicas institucionales." />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
-    <script>
-      // Fallback para despliegue directo en rama main de GitHub Pages
-      if (window.location.hostname.includes('github.io')) {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.crossOrigin = 'anonymous';
-        link.href = '/catalogo_pcpuma/assets/index-yEO0NQLq.css';
-        document.head.appendChild(link);
-
-        const script = document.createElement('script');
-        script.type = 'module';
-        script.crossOrigin = 'anonymous';
-        script.src = '/catalogo_pcpuma/assets/index-i3kuV06N.js';
-        document.head.appendChild(script);
-      }
-    </script>
+    <script type="module" crossorigin src="/catalogo_pcpuma/assets/index-i3kuV06N.js"></script>
+    <link rel="stylesheet" crossorigin href="/catalogo_pcpuma/assets/index-yEO0NQLq.css">
   </head>
   <body class="bg-white text-slate-900 antialiased selection:bg-[#002B7A] selection:text-white">
     <div id="root"></div>
