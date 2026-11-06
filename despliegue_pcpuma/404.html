@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>Catálogo Tecnológico PC PUMA</title>
+    <script>
+      // Single Page App redirect for GitHub Pages
+      var pathSegmentsToKeep = 1; // repository name: /catalogo_pcpuma/
+      var l = window.location;
+      var segments = l.pathname.split('/').filter(Boolean);
+      // Remove repo segment if present
+      if (segments[0] === 'catalogo_pcpuma') {
+        segments.shift();
+      }
+      var route = segments.join('/');
+      var query = l.search ? l.search : '';
+      var hash = l.hash ? l.hash : '';
+      
+      var base = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/catalogo_pcpuma/';
+      l.replace(base + '#/' + route + query + hash);
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

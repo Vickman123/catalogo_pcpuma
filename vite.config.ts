@@ -2,14 +2,16 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-// https://vite.dev/config/
+// Configuración de empaquetado para despliegue en pcpuma.unam.mx y GitHub Pages
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/catalogo_pcpuma/' : '/',
+  base: './',
   plugins: [
     react(),
     tailwindcss(),
   ],
   build: {
+    outDir: process.env.BUILD_OUTDIR || 'dist',
+    emptyOutDir: true,
     rollupOptions: {
       output: {
         entryFileNames: 'assets/[name].js',
@@ -19,3 +21,4 @@ export default defineConfig({
     },
   },
 })
+
