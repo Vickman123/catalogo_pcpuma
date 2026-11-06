@@ -33,8 +33,10 @@ export function App() {
 
       const matchCategory =
         selectedCategory === 'all' ||
+        (selectedCategory === 'laptops' && item.id.includes('laptop')) ||
         (selectedCategory === 'chromebook' && item.id.includes('chromebook')) ||
         (selectedCategory === 'macbook' && item.id.includes('macbook')) ||
+        (selectedCategory === 'tablets' && item.id.includes('ipad')) ||
         (selectedCategory === 'locker' && item.id.includes('locker'));
 
       return matchSearch && matchCategory;
@@ -114,6 +116,17 @@ export function App() {
                   </button>
 
                   <button
+                    onClick={() => setSelectedCategory('laptops')}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                      selectedCategory === 'laptops'
+                        ? 'bg-[#002B7A] text-white shadow-xs'
+                        : 'text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    Laptops Windows (EC-04 / EC-05 / EC-06)
+                  </button>
+
+                  <button
                     onClick={() => setSelectedCategory('chromebook')}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                       selectedCategory === 'chromebook'
@@ -121,7 +134,7 @@ export function App() {
                         : 'text-slate-600 hover:bg-slate-100'
                     }`}
                   >
-                    Chromebook Estándar EC-01 (Multimarca)
+                    Chromebook Estándar EC-01
                   </button>
 
                   <button
@@ -136,6 +149,17 @@ export function App() {
                   </button>
 
                   <button
+                    onClick={() => setSelectedCategory('tablets')}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                      selectedCategory === 'tablets'
+                        ? 'bg-[#002B7A] text-white shadow-xs'
+                        : 'text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    iPads y Tablets (ET-01 / ET-02)
+                  </button>
+
+                  <button
                     onClick={() => setSelectedCategory('locker')}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                       selectedCategory === 'locker'
@@ -143,7 +167,7 @@ export function App() {
                         : 'text-slate-600 hover:bg-slate-100'
                     }`}
                   >
-                    Locker de Autopréstamo LC-01
+                    Lockers LC-01
                   </button>
                 </div>
               </div>
