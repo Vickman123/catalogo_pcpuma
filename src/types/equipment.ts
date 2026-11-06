@@ -24,6 +24,8 @@ export interface Equipment {
   imagePath: string;
   model3dPath: string;
   modelFileSize: string;
+  technicalDiagramImage?: string;
+  technicalDiagramTitle?: string;
   badges: string[];
   quickSpecs: {
     screen: string;

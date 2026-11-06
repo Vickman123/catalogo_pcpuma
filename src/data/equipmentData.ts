@@ -323,6 +323,8 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
     imagePath: `${BASE}images/locker-autoprestamo.png`,
     model3dPath: `${BASE}models/Locker.glb`,
     modelFileSize: '435 KB',
+    technicalDiagramImage: `${BASE}images/locker-plano-tecnico.png`,
+    technicalDiagramTitle: 'Plano Técnico de Dimensiones, Materiales y Requerimientos',
     badges: ['Autoservicio 24/7', 'Capacidad 20 Laptops', 'Acero Calibre 18', 'PDU 127V / 15A', 'Ethernet'],
     quickSpecs: {
       screen: '20 ranuras (3 × 40 × 26 cm c/u)',
