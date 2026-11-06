@@ -33,11 +33,10 @@ export function App() {
 
       const matchCategory =
         selectedCategory === 'all' ||
-        (selectedCategory === 'laptops' && item.id.includes('laptop')) ||
-        (selectedCategory === 'chromebook' && item.id.includes('chromebook')) ||
-        (selectedCategory === 'macbook' && item.id.includes('macbook')) ||
-        (selectedCategory === 'tablets' && item.id.includes('ipad')) ||
-        (selectedCategory === 'locker' && item.id.includes('locker'));
+        (selectedCategory === 'ligero' && item.category === 'Equipamiento Ligero') ||
+        (selectedCategory === 'movil' && item.category === 'Cómputo Móvil') ||
+        (selectedCategory === 'tabletas' && item.category === 'Tabletas') ||
+        (selectedCategory === 'autoservicio' && item.category === 'Autoservicio e Infraestructura');
 
       return matchSearch && matchCategory;
     });
@@ -116,58 +115,47 @@ export function App() {
                   </button>
 
                   <button
-                    onClick={() => setSelectedCategory('laptops')}
+                    onClick={() => setSelectedCategory('ligero')}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-                      selectedCategory === 'laptops'
+                      selectedCategory === 'ligero'
                         ? 'bg-[#002B7A] text-white shadow-xs'
                         : 'text-slate-600 hover:bg-slate-100'
                     }`}
                   >
-                    Laptops Windows (EC-04 / EC-05 / EC-06)
+                    Equipamiento Ligero ({EQUIPMENT_CATALOG.filter((e) => e.category === 'Equipamiento Ligero').length})
                   </button>
 
                   <button
-                    onClick={() => setSelectedCategory('chromebook')}
+                    onClick={() => setSelectedCategory('movil')}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-                      selectedCategory === 'chromebook'
+                      selectedCategory === 'movil'
                         ? 'bg-[#002B7A] text-white shadow-xs'
                         : 'text-slate-600 hover:bg-slate-100'
                     }`}
                   >
-                    Chromebook Estándar EC-01
+                    Cómputo Móvil ({EQUIPMENT_CATALOG.filter((e) => e.category === 'Cómputo Móvil').length})
                   </button>
 
                   <button
-                    onClick={() => setSelectedCategory('macbook')}
+                    onClick={() => setSelectedCategory('tabletas')}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-                      selectedCategory === 'macbook'
+                      selectedCategory === 'tabletas'
                         ? 'bg-[#002B7A] text-white shadow-xs'
                         : 'text-slate-600 hover:bg-slate-100'
                     }`}
                   >
-                    MacBook Neo EC-03
+                    Tabletas ({EQUIPMENT_CATALOG.filter((e) => e.category === 'Tabletas').length})
                   </button>
 
                   <button
-                    onClick={() => setSelectedCategory('tablets')}
+                    onClick={() => setSelectedCategory('autoservicio')}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-                      selectedCategory === 'tablets'
+                      selectedCategory === 'autoservicio'
                         ? 'bg-[#002B7A] text-white shadow-xs'
                         : 'text-slate-600 hover:bg-slate-100'
                     }`}
                   >
-                    iPads y Tablets (ET-01 / ET-02)
-                  </button>
-
-                  <button
-                    onClick={() => setSelectedCategory('locker')}
-                    className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-                      selectedCategory === 'locker'
-                        ? 'bg-[#002B7A] text-white shadow-xs'
-                        : 'text-slate-600 hover:bg-slate-100'
-                    }`}
-                  >
-                    Lockers LC-01
+                    Autoservicio e Infraestructura ({EQUIPMENT_CATALOG.filter((e) => e.category === 'Autoservicio e Infraestructura').length})
                   </button>
                 </div>
               </div>
@@ -210,14 +198,6 @@ export function App() {
           <ProductDetailView
             equipment={selectedProduct}
             onBack={() => setView('catalog')}
-            onSelectOtherEquipment={(id) => {
-              const other = EQUIPMENT_CATALOG.find((e) => e.id === id);
-              if (other) {
-                setSelectedProduct(other);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
-            }}
-            allEquipment={EQUIPMENT_CATALOG}
           />
         )}
       </main>

@@ -17,15 +17,11 @@ import {
 interface ProductDetailViewProps {
   equipment: Equipment;
   onBack: () => void;
-  onSelectOtherEquipment?: (equipmentId: string) => void;
-  allEquipment: Equipment[];
 }
 
 export const ProductDetailView: React.FC<ProductDetailViewProps> = ({
   equipment,
   onBack,
-  onSelectOtherEquipment,
-  allEquipment,
 }) => {
   const [mediaMode, setMediaMode] = useState<'3d' | 'photo' | 'diagram'>('3d');
   const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
@@ -71,37 +67,17 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-6">
-      {/* Top Breadcrumb & Switcher Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      {/* Top Navigation Bar: Return to Catalog */}
+      <div className="mb-6">
         <button
           onClick={onBack}
-          className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-[#002B7A] transition-colors group"
+          className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 text-sm font-semibold text-slate-700 hover:text-[#002B7A] transition-all group shadow-2xs cursor-pointer"
         >
-          <div className="p-1.5 rounded-lg bg-slate-100 group-hover:bg-[#002B7A] group-hover:text-white transition-all">
+          <div className="p-1 rounded-lg bg-slate-100 group-hover:bg-[#002B7A] group-hover:text-white transition-all shadow-2xs">
             <ArrowLeft className="w-4 h-4" />
           </div>
           <span>Volver al catálogo principal</span>
         </button>
-
-        {/* Switch to other available equipment quickly */}
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-slate-500 font-medium">Cambiar equipo:</span>
-          <div className="flex gap-1.5 bg-slate-100 p-1 rounded-xl">
-            {allEquipment.map((eq) => (
-              <button
-                key={eq.id}
-                onClick={() => onSelectOtherEquipment && onSelectOtherEquipment(eq.id)}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                  eq.id === equipment.id
-                    ? 'bg-white text-[#002B7A] shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                {eq.brand} {eq.name}
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Main 2-Column Responsive Layout */}
