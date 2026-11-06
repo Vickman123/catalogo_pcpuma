@@ -7,11 +7,6 @@ import {
   Printer,
   Share2,
   Check,
-  CheckCircle2,
-  Cpu,
-  MapPin,
-  FileCheck,
-  Building,
   Sliders,
   Image as ImageIcon,
   Box,
@@ -34,7 +29,6 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({
   onSelectOtherEquipment,
   allEquipment,
 }) => {
-  const [activeTab, setActiveTab] = useState<'specs' | 'loan'>('specs');
   const [mediaMode, setMediaMode] = useState<'3d' | 'photo'>('3d');
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [copiedNotification, setCopiedNotification] = useState<boolean>(false);
@@ -308,177 +302,104 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({
             </div>
           </div>
 
-          {/* Institutional Specifications & Availability Tabs */}
+          {/* Detailed Technical Specifications Container */}
           <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xs overflow-hidden">
-            {/* Tab Selector */}
-            <div className="flex border-b border-slate-200 bg-slate-50/70 p-1.5 gap-1.5">
-              <button
-                onClick={() => setActiveTab('specs')}
-                className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
-                  activeTab === 'specs'
-                    ? 'bg-white text-[#002B7A] shadow-xs border border-slate-200/60'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <Sliders className="w-3.5 h-3.5" />
-                <span>Ficha Técnica Completa ({equipment.sections.length} secciones)</span>
-              </button>
-
-              <button
-                onClick={() => setActiveTab('loan')}
-                className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
-                  activeTab === 'loan'
-                    ? 'bg-white text-[#002B7A] shadow-xs border border-slate-200/60'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <Building className="w-3.5 h-3.5" />
-                <span>Préstamo y Software PC PUMA</span>
-              </button>
+            <div className="px-6 py-4 border-b border-slate-200 bg-slate-50/70 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Sliders className="w-4 h-4 text-[#002B7A]" />
+                <h3 className="text-sm font-bold text-slate-800">
+                  Ficha Técnica y Especificaciones
+                </h3>
+              </div>
+              <span className="text-xs text-slate-500 font-medium">
+                {equipment.sections.length} categorías técnicas
+              </span>
             </div>
 
-            {/* TAB CONTENT 1: Structured Institutional 2-Column Tables */}
-            {activeTab === 'specs' && (
-              <div className="p-6 space-y-6">
-                {/* Category Filter Chips */}
-                <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none">
+            <div className="p-6 space-y-6">
+              {/* Category Filter Chips */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none">
+                <button
+                  onClick={() => setFilterCategory('all')}
+                  className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+                    filterCategory === 'all'
+                      ? 'bg-[#002B7A] text-white shadow-xs'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  }`}
+                >
+                  Todas las categorías
+                </button>
+                {equipment.sections.map((sec) => (
                   <button
-                    onClick={() => setFilterCategory('all')}
+                    key={sec.id}
+                    onClick={() => setFilterCategory(sec.id)}
                     className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
-                      filterCategory === 'all'
+                      filterCategory === sec.id
                         ? 'bg-[#002B7A] text-white shadow-xs'
                         : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                     }`}
                   >
-                    Todas las categorías
+                    {sec.title}
                   </button>
-                  {equipment.sections.map((sec) => (
-                    <button
-                      key={sec.id}
-                      onClick={() => setFilterCategory(sec.id)}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
-                        filterCategory === sec.id
-                          ? 'bg-[#002B7A] text-white shadow-xs'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                      }`}
-                    >
-                      {sec.title}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Section Tables */}
-                <div className="space-y-6">
-                  {displayedSections.map((section) => (
-                    <div
-                      key={section.id}
-                      className="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs"
-                    >
-                      {/* Table Section Header */}
-                      <div className="bg-slate-100/90 px-4 py-2.5 border-b border-slate-200 flex items-center justify-between">
-                        <h4 className="text-xs font-bold tracking-wider text-[#002B7A] uppercase flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#CFA02C]"></span>
-                          {section.title}
-                        </h4>
-                        <span className="text-[11px] text-slate-500 font-mono">
-                          {section.items.length} especificaciones
-                        </span>
-                      </div>
-
-                      {/* 2-Column Table */}
-                      <table className="w-full text-left border-collapse text-xs">
-                        <thead>
-                          <tr className="bg-slate-50/80 border-b border-slate-200 text-slate-500 text-[11px]">
-                            <th className="py-2 px-4 font-semibold w-2/5 border-r border-slate-200">
-                              Característica
-                            </th>
-                            <th className="py-2 px-4 font-semibold w-3/5">
-                              Especificación técnica
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-100">
-                          {section.items.map((item, idx) => (
-                            <tr
-                              key={idx}
-                              className={`hover:bg-slate-50/80 transition-colors ${
-                                idx % 2 === 1 ? 'bg-slate-50/30' : 'bg-white'
-                              }`}
-                            >
-                              <td className="py-2.5 px-4 font-medium text-slate-700 border-r border-slate-100">
-                                {item.label}
-                              </td>
-                              <td className="py-2.5 px-4 text-slate-900 font-normal">
-                                {item.value || (
-                                  <span className="text-slate-400 italic">
-                                    Información no disponible
-                                  </span>
-                                )}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  ))}
-                </div>
+                ))}
               </div>
-            )}
 
-            {/* TAB CONTENT 2: PC PUMA Loan and UNAM Requirements */}
-            {activeTab === 'loan' && (
-              <div className="p-6 space-y-6">
-                {/* Requirements */}
-                <div className="space-y-3">
-                  <h4 className="text-xs font-bold text-[#002B7A] uppercase tracking-wider flex items-center gap-1.5">
-                    <FileCheck className="w-4 h-4 text-[#CFA02C]" />
-                    Requisitos para Préstamo Universitario
-                  </h4>
-                  <ul className="space-y-2">
-                    {equipment.loanAvailability.requirements.map((req, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-xs text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>{req}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Software Included */}
-                <div className="space-y-3">
-                  <h4 className="text-xs font-bold text-[#002B7A] uppercase tracking-wider flex items-center gap-1.5">
-                    <Cpu className="w-4 h-4 text-[#CFA02C]" />
-                    Software y Configuración Institucional UNAM
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {equipment.loanAvailability.includedSoftware.map((sw, i) => (
-                      <div key={i} className="flex items-center gap-2 text-xs text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#002B7A]"></span>
-                        <span>{sw}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Locations */}
-                <div className="space-y-3">
-                  <h4 className="text-xs font-bold text-[#002B7A] uppercase tracking-wider flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4 text-[#CFA02C]" />
-                    Módulos PC PUMA donde se encuentra disponible
-                  </h4>
-                  <div className="flex flex-wrap gap-1.5">
-                    {equipment.loanAvailability.locations.map((loc, i) => (
-                      <span
-                        key={i}
-                        className="text-xs bg-slate-100 text-slate-700 px-3 py-1.5 rounded-xl border border-slate-200"
-                      >
-                        {loc}
+              {/* Section Tables */}
+              <div className="space-y-6">
+                {displayedSections.map((section) => (
+                  <div
+                    key={section.id}
+                    className="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs"
+                  >
+                    {/* Table Section Header */}
+                    <div className="bg-slate-100/90 px-4 py-2.5 border-b border-slate-200 flex items-center justify-between">
+                      <h4 className="text-xs font-bold tracking-wider text-[#002B7A] uppercase flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#CFA02C]"></span>
+                        {section.title}
+                      </h4>
+                      <span className="text-[11px] text-slate-500 font-mono">
+                        {section.items.length} especificaciones
                       </span>
-                    ))}
+                    </div>
+
+                    {/* 2-Column Table */}
+                    <table className="w-full text-left border-collapse text-xs">
+                      <thead>
+                        <tr className="bg-slate-50/80 border-b border-slate-200 text-slate-500 text-[11px]">
+                          <th className="py-2 px-4 font-semibold w-2/5 border-r border-slate-200">
+                            Característica
+                          </th>
+                          <th className="py-2 px-4 font-semibold w-3/5">
+                            Especificación técnica
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {section.items.map((item, idx) => (
+                          <tr
+                            key={idx}
+                            className={`hover:bg-slate-50/80 transition-colors ${
+                              idx % 2 === 1 ? 'bg-slate-50/30' : 'bg-white'
+                            }`}
+                          >
+                            <td className="py-2.5 px-4 font-medium text-slate-700 border-r border-slate-100">
+                              {item.label}
+                            </td>
+                            <td className="py-2.5 px-4 text-slate-900 font-normal">
+                              {item.value || (
+                                <span className="text-slate-400 italic">
+                                  Información no disponible
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
-                </div>
+                ))}
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
