@@ -1,18 +1,15 @@
 import React from 'react';
-import { Laptop, Scale, ShieldCheck } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
 interface HeaderProps {
-  activeView: 'catalog' | 'detail' | 'comparator';
-  onNavigate: (view: 'catalog' | 'comparator') => void;
-  selectedCount?: number;
+  activeView: 'catalog' | 'detail';
+  onNavigate: (view: 'catalog') => void;
 }
 
 const BASE = import.meta.env.BASE_URL;
 
 export const Header: React.FC<HeaderProps> = ({
-  activeView,
   onNavigate,
-  selectedCount = 0,
 }) => {
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
@@ -80,31 +77,9 @@ export const Header: React.FC<HeaderProps> = ({
         <nav className="flex items-center gap-1 sm:gap-2">
           <button
             onClick={() => onNavigate('catalog')}
-            className={`px-3.5 py-2 rounded-xl text-xs md:text-sm font-medium transition-all flex items-center gap-2 ${
-              activeView === 'catalog' || activeView === 'detail'
-                ? 'bg-[#002B7A] text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
+            className="px-3.5 py-2 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center gap-2 bg-[#002B7A] text-white shadow-xs"
           >
-            <Laptop className="w-4 h-4" />
             <span>Catálogo</span>
-          </button>
-
-          <button
-            onClick={() => onNavigate('comparator')}
-            className={`px-3.5 py-2 rounded-xl text-xs md:text-sm font-medium transition-all flex items-center gap-2 relative ${
-              activeView === 'comparator'
-                ? 'bg-[#002B7A] text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            <Scale className="w-4 h-4" />
-            <span>Comparador</span>
-            {selectedCount > 0 && (
-              <span className="ml-0.5 bg-[#CFA02C] text-slate-900 text-[10px] font-bold px-1.5 py-0.2 rounded-full">
-                {selectedCount}
-              </span>
-            )}
           </button>
         </nav>
       </div>

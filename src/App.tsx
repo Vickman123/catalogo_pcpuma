@@ -4,22 +4,12 @@ import type { Equipment } from './types/equipment';
 import { Header } from './components/Header';
 import { ProductCard } from './components/ProductCard';
 import { ProductDetailView } from './components/ProductDetailView';
-import { EquipmentComparator } from './components/EquipmentComparator';
 import { Footer } from './components/Footer';
-import {
-  Search,
-  Scale,
-  ChevronRight,
-} from 'lucide-react';
+import { Search } from 'lucide-react';
 
 export function App() {
-  const [view, setView] = useState<'catalog' | 'detail' | 'comparator'>('catalog');
+  const [view, setView] = useState<'catalog' | 'detail'>('catalog');
   const [selectedProduct, setSelectedProduct] = useState<Equipment | null>(null);
-  const [comparedIds, setComparedIds] = useState<string[]>([
-    'lenovo-chromebook-500e',
-    'apple-macbook-neo',
-    'locker-autoprestamo-pcpuma',
-  ]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -28,17 +18,6 @@ export function App() {
     setSelectedProduct(equipment);
     setView('detail');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Toggle compare list
-  const handleToggleCompare = (equipment: Equipment) => {
-    setComparedIds((prev) => {
-      if (prev.includes(equipment.id)) {
-        return prev.filter((id) => id !== equipment.id);
-      } else {
-        return [...prev, equipment.id];
-      }
-    });
   };
 
   // Filtered equipment list
@@ -67,11 +46,10 @@ export function App() {
       {/* Institutional Top Header */}
       <Header
         activeView={view}
-        onNavigate={(newView) => {
-          setView(newView);
+        onNavigate={() => {
+          setView('catalog');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
-        selectedCount={comparedIds.length}
       />
 
       {/* Main Content Area */}
@@ -178,8 +156,6 @@ export function App() {
                     equipment={equipment}
                     onSelect={handleOpenDetail}
                     onViewSpecs={handleOpenDetail}
-                    isCompared={comparedIds.includes(equipment.id)}
-                    onToggleCompare={handleToggleCompare}
                   />
                 ))}
               </div>
@@ -201,29 +177,6 @@ export function App() {
                   </button>
                 </div>
               )}
-
-              {/* Floating Compare Action Bar if items selected */}
-              {comparedIds.length >= 2 && (
-                <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 bg-slate-900/95 text-white backdrop-blur-md px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-4 animate-in fade-in slide-in-from-bottom-4">
-                  <div className="flex items-center gap-2">
-                    <Scale className="w-5 h-5 text-[#CFA02C]" />
-                    <span className="text-xs md:text-sm font-semibold">
-                      {comparedIds.length} equipos listos para comparar
-                    </span>
-                  </div>
-
-                  <button
-                    onClick={() => {
-                      setView('comparator');
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className="px-4 py-1.5 rounded-xl bg-[#CFA02C] hover:bg-[#BA8E23] text-slate-950 font-bold text-xs transition-all flex items-center gap-1.5 shadow-xs"
-                  >
-                    <span>Comparar ahora</span>
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              )}
             </section>
           </div>
         )}
@@ -233,8 +186,6 @@ export function App() {
           <ProductDetailView
             equipment={selectedProduct}
             onBack={() => setView('catalog')}
-            onCompare={() => handleToggleCompare(selectedProduct)}
-            isCompared={comparedIds.includes(selectedProduct.id)}
             onSelectOtherEquipment={(id) => {
               const other = EQUIPMENT_CATALOG.find((e) => e.id === id);
               if (other) {
@@ -243,21 +194,6 @@ export function App() {
               }
             }}
             allEquipment={EQUIPMENT_CATALOG}
-          />
-        )}
-
-        {/* VIEW 3: EQUIPMENT COMPARATOR */}
-        {view === 'comparator' && (
-          <EquipmentComparator
-            allEquipment={EQUIPMENT_CATALOG}
-            selectedEquipmentIds={comparedIds}
-            onToggleEquipment={(id) => {
-              setComparedIds((prev) =>
-                prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
-              );
-            }}
-            onViewProduct={handleOpenDetail}
-            onBackToCatalog={() => setView('catalog')}
           />
         )}
       </main>

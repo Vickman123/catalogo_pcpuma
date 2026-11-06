@@ -3,8 +3,6 @@ import type { Equipment } from '../types/equipment';
 import {
   Eye,
   FileText,
-  Scale,
-  Check,
   Cpu,
   Monitor,
   Battery,
@@ -16,16 +14,12 @@ interface ProductCardProps {
   equipment: Equipment;
   onSelect: (equipment: Equipment) => void;
   onViewSpecs: (equipment: Equipment) => void;
-  isCompared: boolean;
-  onToggleCompare: (equipment: Equipment) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   equipment,
   onSelect,
   onViewSpecs,
-  isCompared,
-  onToggleCompare,
 }) => {
   return (
     <div className="group relative bg-white rounded-3xl border border-slate-200 hover:border-[#002B7A]/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
@@ -135,7 +129,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="pt-2 border-t border-slate-100 flex flex-col gap-2.5">
+        <div className="pt-2 border-t border-slate-100">
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => onSelect(equipment)}
@@ -153,28 +147,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <span>Ficha técnica</span>
             </button>
           </div>
-
-          {/* Compare toggle button */}
-          <button
-            onClick={() => onToggleCompare(equipment)}
-            className={`w-full py-1.5 px-3 rounded-xl text-xs font-medium transition-all flex items-center justify-center gap-2 ${
-              isCompared
-                ? 'bg-[#CFA02C]/15 text-[#8F6813] border border-[#CFA02C]/40 font-semibold'
-                : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100 border border-transparent'
-            }`}
-          >
-            {isCompared ? (
-              <>
-                <Check className="w-3.5 h-3.5 text-[#8F6813]" />
-                <span>En lista de comparación</span>
-              </>
-            ) : (
-              <>
-                <Scale className="w-3.5 h-3.5" />
-                <span>Agregar a comparador</span>
-              </>
-            )}
-          </button>
         </div>
       </div>
     </div>

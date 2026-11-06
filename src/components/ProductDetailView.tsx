@@ -3,10 +3,8 @@ import type { Equipment } from '../types/equipment';
 import { ModelViewer3D } from './ModelViewer3D';
 import {
   ArrowLeft,
-  Scale,
   Printer,
   Share2,
-  Check,
   Sliders,
   Image as ImageIcon,
   Box,
@@ -19,8 +17,6 @@ import {
 interface ProductDetailViewProps {
   equipment: Equipment;
   onBack: () => void;
-  onCompare: (equipment: Equipment) => void;
-  isCompared: boolean;
   onSelectOtherEquipment?: (equipmentId: string) => void;
   allEquipment: Equipment[];
 }
@@ -28,8 +24,6 @@ interface ProductDetailViewProps {
 export const ProductDetailView: React.FC<ProductDetailViewProps> = ({
   equipment,
   onBack,
-  onCompare,
-  isCompared,
   onSelectOtherEquipment,
   allEquipment,
 }) => {
@@ -317,43 +311,22 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({
               </div>
             </div>
 
-            {/* Quick Actions (Compare, Print, Share) */}
+            {/* Quick Actions (Print, Share) */}
             <div className="pt-2 flex flex-wrap items-center gap-2">
               <button
-                onClick={() => onCompare(equipment)}
-                className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-2 shadow-xs ${
-                  isCompared
-                    ? 'bg-[#CFA02C] text-slate-900 font-bold'
-                    : 'bg-[#002B7A] hover:bg-[#001B4E] text-white'
-                }`}
-              >
-                {isCompared ? (
-                  <>
-                    <Check className="w-4 h-4" />
-                    <span>Seleccionado para comparar</span>
-                  </>
-                ) : (
-                  <>
-                    <Scale className="w-4 h-4" />
-                    <span>Comparar este equipo</span>
-                  </>
-                )}
-              </button>
-
-              <button
                 onClick={handlePrint}
-                title="Imprimir ficha técnica"
-                className="p-2.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 transition-all"
+                className="flex-1 py-2.5 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-all flex items-center justify-center gap-2 shadow-2xs cursor-pointer"
               >
-                <Printer className="w-4 h-4" />
+                <Printer className="w-4 h-4 text-slate-500" />
+                <span>Imprimir ficha técnica</span>
               </button>
 
               <button
                 onClick={handleShare}
-                title="Copiar enlace"
-                className="p-2.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 transition-all relative"
+                className="py-2.5 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-all flex items-center justify-center gap-2 relative shadow-2xs cursor-pointer"
               >
-                <Share2 className="w-4 h-4" />
+                <Share2 className="w-4 h-4 text-slate-500" />
+                <span>Compartir</span>
                 {copiedNotification && (
                   <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] px-2 py-0.5 rounded shadow whitespace-nowrap">
                     ¡Enlace copiado!
