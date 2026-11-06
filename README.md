@@ -37,37 +37,43 @@ Permite explorar los dispositivos mediante **modelos 3D interactivos en tiempo r
    - Unidad de referencia técnica actual en catálogo: Lenovo Chromebook 500e 2-in-1.
    - Procesador MediaTek Kompanio 540 de 8 núcleos y 8 GB de RAM LPDDR5X-6400.
    - Pantalla táctil HD IPS de 11.6" con bisagra convertible de 360° y ChromeOS.
-2. **MacBook Neo - PC Puma EC-03(2026):**
+2. **Chromebook Plus - PC Puma EC-02(2026) (Multimarca):**
+   - Chromebook Plus certificada con pantalla táctil obligatoria de 14" o superior FHD IPS.
+   - Procesador Intel Core i5 de 12ª Gen+ o MediaTek Kompanio Ultra con soporte vigente.
+   - 16 GB de memoria RAM (LPDDR4X/LPDDR5) y almacenamiento de 256 GB SSD.
+   - Zero Touch Enrollment en dominio institucional UNAM, ChromeOS Education Upgrade y MIL-STD-810H.
+   - Modelo 3D interactivo real (`Chromebook_plus.glb`).
+3. **MacBook Neo - PC Puma EC-03(2026):**
    - Chip Apple Silicon con arquitectura de memoria unificada.
    - Pantalla Liquid Retina con amplia gama de color P3 (500 nits).
    - Chasis unibody de aluminio 100% reciclado y conectividad Thunderbolt / MagSafe 3.
    - macOS con suite de herramientas de desarrollo, artes visuales y cómputo científico.
-3. **Laptop 1 - PC Puma-EC-04(2026) (Cómputo Regular):**
+4. **Laptop Estándar - PC Puma EC-04(2026) (Cómputo Móvil Regular):**
    - Laptop institucional de 14" con procesador Intel Core i5 de 14ª Gen o AMD Ryzen 5 serie 7000.
    - 16 GB de RAM DDR5, 512 GB SSD, pantalla FHD (1920 × 1080), Wi-Fi 6E y Ethernet RJ-45.
    - Chasis certificado bajo estándar militar MIL-STD-810H y certificación Energy Star 8.0.
    - Modelo 3D interactivo real (`Computo_regular.glb`).
-4. **Laptop 2 - PC Puma-EC-04(2026) (Cómputo Especializado):**
+5. **Laptop Especializada - PC Puma EC-05(2026) (Cómputo Móvil Especializado):**
    - Laptop de alta potencia con procesador Intel Core Ultra 7 o AMD Ryzen 7 serie 8000/9000.
    - Tarjeta gráfica dedicada de 6 GB GDDR6 o superior para laboratorios y análisis avanzado.
    - 16 GB DDR5, 1 TB SSD NVMe, pantalla antirreflejante de 15.6" (1920 × 1200) y norma MIL-STD-810G.
    - Modelo 3D interactivo real (`computo_especializado.glb`).
-5. **Laptop 3 - PC Puma-EC-06(2026) (Cómputo de Alto Rendimiento / Workstation):**
+6. **Laptop de Alto Rendimiento - PC Puma EC-06(2026) (Cómputo Móvil Workstation):**
    - Estación de trabajo móvil con Intel Core i9 de 14ª Gen o AMD Ryzen 9 serie 8000/9000.
    - Gráficos dedicados profesionales de 8 GB GDDR6 (NVIDIA RTX 4070 / RTX A2000 Workstation).
    - 32 GB DDR5 expandibles, 1 TB SSD, Wi-Fi 7, Ethernet Gigabit y chasis reforzado MIL-STD-810G.
    - Modelo 3D interactivo real (`Computo_alto_rendimiento.glb`).
-6. **iPad Estándar - PC Puma ET-01(2026):**
+7. **iPad Estándar - PC Puma ET-01(2026):**
    - Tableta multitáctil de 10.9" con chip Apple A14 Bionic y Neural Engine de 16 núcleos.
    - Pantalla Liquid Retina IPS (2360 × 1640), cámara frontal horizontal ultra gran angular de 12 MP con Center Stage.
    - Conectividad Wi-Fi 6, puerto USB-C, Touch ID y soporte para Apple Pencil.
    - Modelo 3D interactivo real (`ipad.glb`).
-7. **iPad Pro - PC Puma ET-02(2026):**
+8. **iPad Pro - PC Puma ET-02(2026):**
    - Tableta profesional de alta gama con procesador Apple Silicon M2 (GPU de 10 núcleos).
    - Pantalla Liquid Retina de 11" con tecnología ProMotion a 120 Hz adaptativos (600 nits).
    - Escáner LiDAR integrado para realidad aumentada y 3D, Face ID y puerto Thunderbolt / USB 4.
    - Modelo 3D interactivo real (`ipad_pro.glb`).
-8. **Locker de Autopréstamo - PC Puma LC-01(2026):**
+9. **Locker de Autopréstamo - PC Puma LC-01(2026):**
    - Módulo automatizado de autoservicio para resguardo, préstamo y recarga de 20 computadoras portátiles.
    - Fabricado en lámina de acero calibre 18 y base en PTR calibre 14 con acabado en pintura electrostática.
    - 20 compartimentos con ventanas de visualización y tomas de corriente independientes con PDU regulada (127 V, 15 A).
