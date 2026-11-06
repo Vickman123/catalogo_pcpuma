@@ -1,5 +1,7 @@
 import type { Equipment } from '../types/equipment';
 
+const BASE = import.meta.env.BASE_URL;
+
 export const EQUIPMENT_CATALOG: Equipment[] = [
   {
     id: 'lenovo-chromebook-500e',
@@ -11,8 +13,8 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
     subCategory: 'Cómputo Móvil para Estudiantes',
     tagline: 'Versatilidad 360° y resistencia de grado militar para el entorno educativo universitario.',
     description: 'Equipo portátil convertible 2 en 1 de 11.6 pulgadas con procesador MediaTek de 8 núcleos, pantalla táctil IPS protegida con Corning Gorilla Glass y bisagra de rotación completa de 360 grados. Diseñado específicamente para soportar el ritmo continuo de clases, investigación de campo y actividades académicas en la UNAM con una autonomía de batería para toda la jornada escolar.',
-    imagePath: '/images/chromebook-500e.jpg',
-    model3dPath: '/models/Chromebook.glb',
+    imagePath: `${BASE}images/chromebook-500e.jpg`,
+    model3dPath: `${BASE}models/Chromebook.glb`,
     modelFileSize: '420 KB',
     badges: ['Convertible 360°', 'Pantalla Táctil', 'MIL-STD-810G', 'Batería Todo el Día', 'PC PUMA Préstamo'],
     quickSpecs: {
@@ -192,8 +194,8 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
     subCategory: 'Cómputo Profesional y Multimedia',
     tagline: 'Potencia de silicio unificado y pantalla Liquid Retina para cómputo avanzado, diseño y ciencias.',
     description: 'Computadora portátil de alto rendimiento con chasis unibody de aluminio 100% reciclado, procesador Apple Silicon con arquitectura de memoria unificada de ultra alta velocidad, pantalla Liquid Retina de amplia gama de color P3 y sistema de audio envolvente. Destinada a carreras y proyectos académicos con alta demanda computacional como arquitectura, diseño, artes visuales, desarrollo de software, modelado 3D y análisis de datos en la UNAM.',
-    imagePath: '/images/macbook-neo.jpg',
-    model3dPath: '/models/macbook_neo.glb',
+    imagePath: `${BASE}images/macbook-neo.jpg`,
+    model3dPath: `${BASE}models/macbook_neo.glb`,
     modelFileSize: '25.9 MB',
     badges: ['Apple Silicon', 'Liquid Retina P3', 'Aluminio Unibody', 'Thunderbolt / USB 4', 'PC PUMA Avanzado'],
     quickSpecs: {

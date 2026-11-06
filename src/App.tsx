@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { EQUIPMENT_CATALOG } from './data/equipmentData';
 import type { Equipment } from './types/equipment';
 import { Header } from './components/Header';
@@ -8,15 +8,8 @@ import { EquipmentComparator } from './components/EquipmentComparator';
 import { Footer } from './components/Footer';
 import {
   Search,
-  Sparkles,
   Scale,
-  Laptop,
-  CheckCircle2,
-  BookOpen,
-  Wifi,
-  ShieldCheck,
   ChevronRight,
-  Filter,
 } from 'lucide-react';
 
 export function App() {

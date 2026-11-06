@@ -1,5 +1,5 @@
 import React from 'react';
-import { Laptop, Layers, Scale, Sparkles, Building2, BookOpen, ShieldCheck } from 'lucide-react';
+import { Laptop, Scale, ShieldCheck } from 'lucide-react';
 
 interface HeaderProps {
   activeView: 'catalog' | 'detail' | 'comparator';

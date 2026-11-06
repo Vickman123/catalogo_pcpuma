@@ -126,10 +126,12 @@ export const ModelViewer3D: React.FC<ModelViewer3DProps> = ({
         const mesh = child as THREE.Mesh;
         if (Array.isArray(mesh.material)) {
           mesh.material.forEach((m) => {
-            m.wireframe = nextState;
+            if ('wireframe' in m) {
+              (m as THREE.MeshStandardMaterial).wireframe = nextState;
+            }
           });
-        } else if (mesh.material) {
-          mesh.material.wireframe = nextState;
+        } else if (mesh.material && 'wireframe' in mesh.material) {
+          (mesh.material as THREE.MeshStandardMaterial).wireframe = nextState;
         }
       }
     });
@@ -606,8 +608,6 @@ export const ModelViewer3D: React.FC<ModelViewer3DProps> = ({
             onClick={() => {
               setError(null);
               setLoading(true);
-              // Trigger reload
-              const cur = modelPath;
               sceneRef.current = null;
             }}
             className="inline-flex items-center gap-2 px-4 py-2 bg-[#002B7A] hover:bg-[#001B4E] text-white text-xs font-medium rounded-xl transition-all"

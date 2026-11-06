@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Equipment } from '../types/equipment';
 import { COMPARISON_FIELDS } from '../data/equipmentData';
-import { Scale, ArrowLeft, Check, Printer, Sparkles, Layers, Eye } from 'lucide-react';
+import { Scale, ArrowLeft, Check, Printer, Sparkles, Eye } from 'lucide-react';
 
 interface EquipmentComparatorProps {
   allEquipment: Equipment[];

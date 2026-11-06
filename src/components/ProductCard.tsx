@@ -9,7 +9,6 @@ import {
   Monitor,
   Battery,
   HardDrive,
-  Layers,
   Sparkles,
 } from 'lucide-react';
 
@@ -28,8 +27,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   isCompared,
   onToggleCompare,
 }) => {
-  const isApple = equipment.brand.toLowerCase() === 'apple';
-
   return (
     <div className="group relative bg-white rounded-3xl border border-slate-200 hover:border-[#002B7A]/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
       {/* Card Header Media Canvas Preview Box */}
