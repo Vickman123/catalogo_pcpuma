@@ -81,8 +81,7 @@ Permite explorar los dispositivos mediante **modelos 3D interactivos en tiempo r
 
 ---
 
-## 🏛️ Créditos y Reconocimientos Institucionales
+## 🏛️ Reconocimientos Institucionales
 
 - **Institución:** Universidad Nacional Autónoma de México (UNAM)
-- **Dependencia:** Dirección General de Cómputo y de Tecnologías de Información y Comunicación (DGTIC)
 - **Programa:** PC PUMA – Conectividad y Cómputo Móvil Universitario

@@ -101,7 +101,7 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         title: 'Conectividad y Puertos',
         items: [
           { label: 'Conectividad Wi-Fi', value: 'Wi-Fi 802.11 a/b/g/n/ac (2x2 MIMO) de doble banda (2.4 GHz y 5 GHz)' },
-          { label: 'Compatibilidad de red', value: 'Certificada para Red Inalámbrica Universitaria (RIU) y eduroam UNAM' },
+          { label: 'Compatibilidad de red', value: 'Certificada para Red Inalámbrica PC PUMA y eduroam UNAM' },
           { label: 'Bluetooth', value: 'Bluetooth 4.2 / 5.0' },
           { label: 'Puertos USB-C', value: '1x USB-C 3.2 Gen 1 (Carga rápida Power Delivery, DisplayPort y datos)' },
           { label: 'Puertos USB-A', value: '1x USB-A 3.2 Gen 1 de alta velocidad' },
@@ -282,7 +282,7 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         title: 'Conectividad y Puertos',
         items: [
           { label: 'Conectividad Wi-Fi', value: 'Wi-Fi 6E (802.11ax) de triple banda de alta velocidad' },
-          { label: 'Compatibilidad de red', value: 'Conexión optimizada para Red Inalámbrica Universitaria (RIU) y eduroam' },
+          { label: 'Compatibilidad de red', value: 'Conexión optimizada para Red Inalámbrica PC PUMA y eduroam' },
           { label: 'Bluetooth', value: 'Bluetooth 5.3' },
           { label: 'Puertos Thunderbolt', value: '2x puertos Thunderbolt / USB 4 (soporta carga, DisplayPort, Thunderbolt 3 de hasta 40 Gb/s)' },
           { label: 'Puerto de alimentación', value: 'Puerto de carga magnética MagSafe 3' },
@@ -359,7 +359,7 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         'Suite Adobe Creative Cloud institucional (Photoshop, Illustrator, Premiere Pro)',
         'Blender 3D y suites de modelado',
         'Google Workspace y Microsoft 365 para macOS',
-        'Acceso configurado a RIU y VPN UNAM',
+        'Acceso configurado a Red Inalámbrica PC PUMA y servicios UNAM',
       ],
     },
   },

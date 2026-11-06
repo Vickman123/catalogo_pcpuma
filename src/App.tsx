@@ -102,45 +102,6 @@ export function App() {
                 <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
                   Explora las características, capacidades y especificaciones técnicas de los equipos tecnológicos disponibles en PC PUMA mediante modelos 3D interactivos en tiempo real.
                 </p>
-
-                {/* Key Institutional Metrics Bar */}
-                <div className="pt-6 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto">
-                  <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs">
-                    <span className="text-xl md:text-2xl font-black text-[#002B7A] block font-heading">
-                      100%
-                    </span>
-                    <span className="text-xs text-slate-500 font-medium">
-                      Gratuito para la comunidad UNAM
-                    </span>
-                  </div>
-
-                  <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs">
-                    <span className="text-xl md:text-2xl font-black text-[#002B7A] block font-heading">
-                      360°
-                    </span>
-                    <span className="text-xs text-slate-500 font-medium">
-                      Modelos 3D interactivos reales
-                    </span>
-                  </div>
-
-                  <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs">
-                    <span className="text-xl md:text-2xl font-black text-[#002B7A] block font-heading">
-                      RIU
-                    </span>
-                    <span className="text-xs text-slate-500 font-medium">
-                      Conexión Wi-Fi de alta velocidad
-                    </span>
-                  </div>
-
-                  <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs">
-                    <span className="text-xl md:text-2xl font-black text-[#002B7A] block font-heading">
-                      +25
-                    </span>
-                    <span className="text-xs text-slate-500 font-medium">
-                      Módulos en Bibliotecas y Facultades
-                    </span>
-                  </div>
-                </div>
               </div>
             </section>
 

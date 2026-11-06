@@ -36,15 +36,10 @@ export const Footer: React.FC = () => {
             </h5>
             <ul className="space-y-2 text-xs">
               <li>
-                <a
-                  href="https://www.riu.unam.mx"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors inline-flex items-center gap-1.5"
-                >
+                <div className="text-slate-300 inline-flex items-center gap-1.5">
                   <Wifi className="w-3.5 h-3.5 text-sky-400" />
-                  Red Inalámbrica Universitaria (RIU)
-                </a>
+                  <span>Red Inalámbrica PC PUMA</span>
+                </div>
               </li>
               <li>
                 <a
@@ -68,17 +63,6 @@ export const Footer: React.FC = () => {
                   Biblioteca Digital UNAM (BiDi)
                 </a>
               </li>
-              <li>
-                <a
-                  href="https://dgtic.unam.mx"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors inline-flex items-center gap-1.5"
-                >
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
-                  Dirección General de Cómputo (DGTIC)
-                </a>
-              </li>
             </ul>
           </div>
 
@@ -90,7 +74,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-xs text-slate-400">
               <li className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-[#CFA02C] shrink-0" />
-                <span>Módulos PC PUMA en Bibliotecas y Facultades</span>
+                <span>Módulos de Préstamo PC PUMA</span>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-[#CFA02C] shrink-0" />
@@ -98,7 +82,7 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-2">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#CFA02C] shrink-0" />
-                <span>Mesa de Ayuda DGTIC</span>
+                <span>Mesa de Soporte PC PUMA</span>
               </li>
             </ul>
           </div>

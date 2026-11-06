@@ -27,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
             <span className="text-white/40 hidden sm:inline">•</span>
             <span className="text-white/80 text-[11px]">
-              DGTIC / PC PUMA
+              Programa PC PUMA
             </span>
           </div>
 
