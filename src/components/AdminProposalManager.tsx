@@ -7,7 +7,8 @@ import {
   updateProposal,
   toggleProposalStatus,
   deleteProposal,
-  getProposalShareUrl,
+  getCleanProposalUrl,
+  generateShortUrl,
 } from '../services/proposalService';
 import {
   Plus,
@@ -25,6 +26,9 @@ import {
   X,
   ShieldCheck,
   CheckCircle2,
+  Zap,
+  Link,
+  Loader2,
 } from 'lucide-react';
 
 interface AdminProposalManagerProps {
@@ -42,6 +46,7 @@ export const AdminProposalManager: React.FC<AdminProposalManagerProps> = ({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editingProposalId, setEditingProposalId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [isShorteningId, setIsShorteningId] = useState<string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Form State
@@ -180,26 +185,50 @@ export const AdminProposalManager: React.FC<AdminProposalManagerProps> = ({
     }
   };
 
-  // Copy share URL
+  const copyTextToClipboard = async (text: string) => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+  };
+
+  // Copy clean institutional URL (e.g. https://domain/#/propuesta/8f3a92b7c1d4)
   const handleCopyLink = async (proposal: Proposal) => {
-    const url = getProposalShareUrl(proposal);
+    const url = getCleanProposalUrl(proposal.id);
     try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(url);
-      } else {
-        const textarea = document.createElement('textarea');
-        textarea.value = url;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-      }
+      await copyTextToClipboard(url);
       setCopiedId(proposal.id);
-      showToast('¡Enlace copiado al portapapeles!');
+      showToast('¡Enlace institucional copiado!');
       setTimeout(() => setCopiedId(null), 2500);
     } catch (err) {
       console.error('Error copying to clipboard:', err);
-      showToast('No se pudo copiar automáticamente. Por favor cópialo manualmente.');
+      showToast('No se pudo copiar automáticamente.');
+    }
+  };
+
+  // Generate & copy short URL (TinyURL / is.gd)
+  const handleCopyShortUrl = async (proposal: Proposal) => {
+    setIsShorteningId(proposal.id);
+    try {
+      const short = await generateShortUrl(proposal);
+      await copyTextToClipboard(short);
+      setCopiedId(proposal.id + '-short');
+      reloadProposals();
+      showToast('¡Enlace corto copiado para compartir!');
+      setTimeout(() => setCopiedId(null), 2500);
+    } catch (err) {
+      console.error('Error shortening URL:', err);
+      const clean = getCleanProposalUrl(proposal.id);
+      await copyTextToClipboard(clean);
+      showToast('Enlace institucional copiado.');
+    } finally {
+      setIsShorteningId(null);
     }
   };
 
@@ -398,21 +427,49 @@ export const AdminProposalManager: React.FC<AdminProposalManagerProps> = ({
                 </div>
 
                 {/* Right side: Action Buttons */}
-                <div className="flex flex-wrap lg:flex-col items-stretch justify-end gap-2 border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-100 min-w-[200px]">
-                  {/* Copy Link Button */}
+                <div className="flex flex-wrap lg:flex-col items-stretch justify-end gap-2 border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-100 min-w-[220px]">
+                  {/* Clean Institutional Link Button */}
                   <button
                     onClick={() => handleCopyLink(proposal)}
-                    className="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-xs transition-all"
+                    className="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-xs transition-all"
+                    title={getCleanProposalUrl(proposal.id)}
                   >
                     {copiedId === proposal.id ? (
                       <>
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>¡Enlace Copiado!</span>
+                        <span>¡Enlace Institucional Copiado!</span>
                       </>
                     ) : (
                       <>
-                        <Copy className="w-3.5 h-3.5 text-[#CFA02C]" />
-                        <span>Copiar Enlace Privado</span>
+                        <Link className="w-3.5 h-3.5 text-[#CFA02C]" />
+                        <span>Copiar Enlace Institucional</span>
+                      </>
+                    )}
+                  </button>
+
+                  {/* Short Link Button (TinyURL) */}
+                  <button
+                    onClick={() => handleCopyShortUrl(proposal)}
+                    disabled={isShorteningId === proposal.id}
+                    className="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold transition-all disabled:opacity-50"
+                    title={proposal.shortUrl || 'Generar link corto vía TinyURL'}
+                  >
+                    {isShorteningId === proposal.id ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-700" />
+                        <span>Generando enlace corto...</span>
+                      </>
+                    ) : copiedId === proposal.id + '-short' ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>¡Enlace Corto Copiado!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Zap className="w-3.5 h-3.5 text-amber-600" />
+                        <span>
+                          {proposal.shortUrl ? 'Copiar Enlace Corto' : '⚡ Generar Enlace Corto'}
+                        </span>
                       </>
                     )}
                   </button>
@@ -420,13 +477,13 @@ export const AdminProposalManager: React.FC<AdminProposalManagerProps> = ({
                   {/* View as entity */}
                   <button
                     onClick={() => onOpenProposal(proposal.id)}
-                    className="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#002B7A]/10 hover:bg-[#002B7A]/20 text-[#002B7A] text-xs font-bold transition-all"
+                    className="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-[#002B7A]/10 hover:bg-[#002B7A]/20 text-[#002B7A] text-xs font-bold transition-all"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>Ver como Entidad</span>
                   </button>
 
-                  <div className="flex items-center gap-2 w-full">
+                  <div className="flex items-center gap-2 w-full pt-1">
                     {/* Toggle Status (Close / Open) */}
                     <button
                       onClick={() => handleToggleStatus(proposal.id)}
@@ -729,28 +786,86 @@ export const AdminProposalManager: React.FC<AdminProposalManagerProps> = ({
               </p>
             </div>
 
-            {/* Unique Link Box */}
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-left space-y-2">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                Enlace Privado Único para la Entidad:
-              </label>
-              <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  readOnly
-                  value={getProposalShareUrl(newlyCreatedProposal)}
-                  className="w-full bg-white border border-slate-200 px-3 py-2 text-xs font-mono rounded-xl text-slate-700 select-all focus:outline-none"
-                />
-                <button
-                  onClick={() => handleCopyLink(newlyCreatedProposal)}
-                  className="px-3.5 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition-colors shrink-0 flex items-center gap-1.5"
-                >
-                  <Copy className="w-3.5 h-3.5 text-[#CFA02C]" />
-                  <span>Copiar</span>
-                </button>
+            {/* Unique Link Boxes */}
+            <div className="space-y-3 text-left">
+              {/* Option 1: Clean Institutional Link */}
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="text-[11px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                    <Link className="w-3 h-3 text-[#002B7A]" />
+                    <span>Enlace Institucional Limpio (Recomendado):</span>
+                  </label>
+                  <span className="text-[10px] text-slate-500 font-mono">Dominio oficial</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    readOnly
+                    value={getCleanProposalUrl(newlyCreatedProposal.id)}
+                    className="w-full bg-white border border-slate-200 px-3 py-2 text-xs font-mono rounded-xl text-slate-800 select-all focus:outline-none"
+                  />
+                  <button
+                    onClick={() => handleCopyLink(newlyCreatedProposal)}
+                    className="px-3.5 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition-colors shrink-0 flex items-center gap-1.5"
+                  >
+                    {copiedId === newlyCreatedProposal.id ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Copiado</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5 text-[#CFA02C]" />
+                        <span>Copiar</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
-              <p className="text-[11px] text-slate-500">
-                La entidad podrá ingresar directamente sin contraseña ni inicio de sesión y solo consultará los {newlyCreatedProposal.equipmentIds.length} equipos asignados con sus modelos 3D y fichas técnicas.
+
+              {/* Option 2: Shortened Link (TinyURL / is.gd) */}
+              <div className="bg-amber-50/70 border border-amber-200 rounded-2xl p-4 space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="text-[11px] font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+                    <Zap className="w-3 h-3 text-amber-600" />
+                    <span>Enlace Ultra Corto (Ideal para WhatsApp y Oficios):</span>
+                  </label>
+                  <span className="text-[10px] text-amber-700 font-semibold">Portabilidad total</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    readOnly
+                    value={newlyCreatedProposal.shortUrl || 'Generar link corto con 1 clic...'}
+                    className="w-full bg-white border border-amber-200 px-3 py-2 text-xs font-mono rounded-xl text-slate-800 select-all focus:outline-none"
+                  />
+                  <button
+                    onClick={() => handleCopyShortUrl(newlyCreatedProposal)}
+                    disabled={isShorteningId === newlyCreatedProposal.id}
+                    className="px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-colors shrink-0 flex items-center gap-1.5 disabled:opacity-50"
+                  >
+                    {isShorteningId === newlyCreatedProposal.id ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Acortando...</span>
+                      </>
+                    ) : copiedId === newlyCreatedProposal.id + '-short' ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-white" />
+                        <span>¡Copiado!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Zap className="w-3.5 h-3.5" />
+                        <span>{newlyCreatedProposal.shortUrl ? 'Copiar Corto' : '⚡ Generar Corto'}</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              <p className="text-[11px] text-slate-500 pt-1">
+                Ambos enlaces son privados y permiten a la entidad consultar directamente los {newlyCreatedProposal.equipmentIds.length} equipos asignados en 3D sin iniciar sesión.
               </p>
             </div>
 

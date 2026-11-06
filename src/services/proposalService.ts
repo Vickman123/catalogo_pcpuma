@@ -196,14 +196,69 @@ export function saveImportedProposal(proposal: Proposal): void {
   saveProposals(list);
 }
 
-// Generates the full private URL for a proposal
-export function getProposalShareUrl(proposal: Proposal): string {
+// Generates the clean official institutional URL (e.g. https://pcpuma.unam.mx/#/propuesta/8f3a92b7c1d4)
+export function getCleanProposalUrl(proposalId: string): string {
   const origin = window.location.origin;
   const pathname = window.location.pathname.replace(/\/$/, '');
-  const token = encodeProposalToken(proposal);
-
-  // Hash route format that works anywhere without server routing configuration
-  // E.g. https://domain.com/catalogo_pcpuma/#/propuesta/8f3a92b7c1d4?tk=...
-  const tokenParam = token ? `?tk=${token}` : '';
-  return `${origin}${pathname}/#/propuesta/${proposal.id}${tokenParam}`;
+  return `${origin}${pathname}/#/propuesta/${proposalId}`;
 }
+
+// Generates the portable URL containing the encoded proposal token for cross-device sharing
+export function getPortableProposalUrl(proposal: Proposal): string {
+  const clean = getCleanProposalUrl(proposal.id);
+  const token = encodeProposalToken(proposal);
+  return token ? `${clean}?tk=${token}` : clean;
+}
+
+// Default share URL: Returns clean short institutional URL
+export function getProposalShareUrl(proposal: Proposal): string {
+  if (proposal.shortUrl) return proposal.shortUrl;
+  return getCleanProposalUrl(proposal.id);
+}
+
+// Calls an open URL shortener API (TinyURL / is.gd) with the portable URL so the recipient gets full data
+export async function generateShortUrl(proposal: Proposal): Promise<string> {
+  // If already cached, return it
+  if (proposal.shortUrl) {
+    return proposal.shortUrl;
+  }
+
+  const portableUrl = getPortableProposalUrl(proposal);
+
+  try {
+    // 1. Try TinyURL API
+    const response = await fetch(
+      `https://tinyurl.com/api-create.php?url=${encodeURIComponent(portableUrl)}`
+    );
+    if (response.ok) {
+      const short = (await response.text()).trim();
+      if (short.startsWith('http')) {
+        updateProposal(proposal.id, { shortUrl: short });
+        return short;
+      }
+    }
+  } catch (err) {
+    console.warn('TinyURL failed, trying fallback:', err);
+  }
+
+  try {
+    // 2. Try is.gd API fallback
+    const response = await fetch(
+      `https://is.gd/create.php?format=json&url=${encodeURIComponent(portableUrl)}`
+    );
+    if (response.ok) {
+      const data = await response.json();
+      if (data && data.shorturl) {
+        updateProposal(proposal.id, { shortUrl: data.shorturl });
+        return data.shorturl;
+      }
+    }
+  } catch (err) {
+    console.warn('Fallback shortener failed:', err);
+  }
+
+  // Fallback to clean institutional link
+  const clean = getCleanProposalUrl(proposal.id);
+  return clean;
+}
+

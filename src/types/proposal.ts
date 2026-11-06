@@ -5,6 +5,7 @@ export interface Proposal {
   description: string; // e.g. 'Equipos sugeridos para aulas y laboratorios digitales'
   equipmentIds: string[]; // IDs from EQUIPMENT_CATALOG, e.g. ['lenovo-chromebook-500e', 'apple-macbook-neo']
   status: 'activa' | 'cerrada';
+  shortUrl?: string; // e.g. 'https://tinyurl.com/pcpuma-fad'
   createdAt: string; // ISO date
   updatedAt: string; // ISO date
 }
