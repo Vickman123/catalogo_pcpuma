@@ -142,7 +142,7 @@ export function App() {
                         : 'text-slate-600 hover:bg-slate-100'
                     }`}
                   >
-                    Lenovo Chromebooks
+                    Chromebook Estándar EC-01
                   </button>
 
                   <button
@@ -153,7 +153,7 @@ export function App() {
                         : 'text-slate-600 hover:bg-slate-100'
                     }`}
                   >
-                    Apple MacBook Neo
+                    MacBook Neo EC-03
                   </button>
                 </div>
               </div>
