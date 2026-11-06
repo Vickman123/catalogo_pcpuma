@@ -441,7 +441,8 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         title: 'Identificación y Tipo',
         items: [
           { label: 'Modelo oficial', value: 'Laptop Estándar - PC Puma EC-04(2026)' },
-          { label: 'Categoría institucional', value: 'Cómputo Regular' },
+          { label: 'Identificador del equipo', value: 'PC-PUMA-EC-04(2026)' },
+          { label: 'Categoría institucional', value: 'Cómputo Móvil (Cómputo Regular)' },
           { label: 'Tipo de equipo', value: 'Equipo de cómputo portátil tipo Laptop' },
           { label: 'Arquitectura', value: 'x86 de 64 bits' },
           { label: 'Fabricante', value: 'Multimarca homologada conforme a estándares PC PUMA (Lenovo, HP, ASUS, Dell)' },
@@ -544,7 +545,8 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         title: 'Identificación y Tipo',
         items: [
           { label: 'Modelo oficial', value: 'Laptop Especializada - PC Puma EC-05(2026)' },
-          { label: 'Categoría institucional', value: 'Cómputo Especializado' },
+          { label: 'Identificador del equipo', value: 'PC-PUMA-EC-05(2026)' },
+          { label: 'Categoría institucional', value: 'Cómputo Móvil (Cómputo Especializado)' },
           { label: 'Tipo de equipo', value: 'Equipo de cómputo portátil tipo Laptop' },
           { label: 'Arquitectura', value: 'x86 de 64 bits' },
           { label: 'Fabricante', value: 'Multimarca homologada conforme a estándares PC PUMA' },
@@ -646,7 +648,8 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         title: 'Identificación y Gama',
         items: [
           { label: 'Modelo oficial', value: 'Laptop de Alto Rendimiento - PC Puma EC-06(2026)' },
-          { label: 'Categoría institucional', value: 'Cómputo de Alto Rendimiento' },
+          { label: 'Identificador del equipo', value: 'PC-PUMA-EC-06(2026)' },
+          { label: 'Categoría institucional', value: 'Cómputo Móvil (Alto Rendimiento / Workstation)' },
           { label: 'Tipo de equipo', value: 'Equipo de cómputo portátil tipo Laptop (puede ser gama workstation)' },
           { label: 'Arquitectura', value: 'x86 de 64 bits' },
           { label: 'Fabricante', value: 'Multimarca homologada conforme a estándares PC PUMA' },

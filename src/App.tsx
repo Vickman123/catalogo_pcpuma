@@ -7,6 +7,8 @@ import { ProductDetailView } from './components/ProductDetailView';
 import { Footer } from './components/Footer';
 import { Search } from 'lucide-react';
 
+const BASE = import.meta.env.BASE_URL;
+
 export function App() {
   const [view, setView] = useState<'catalog' | 'detail'>('catalog');
   const [selectedProduct, setSelectedProduct] = useState<Equipment | null>(null);
@@ -71,6 +73,15 @@ export function App() {
                   <span className="text-xs font-semibold text-slate-700 tracking-wide">
                     Plataforma Oficial de Consulta • UNAM
                   </span>
+                </div>
+
+                {/* PC PUMA Official Logo */}
+                <div className="flex justify-center items-center pt-1 pb-2">
+                  <img
+                    src={`${BASE}images/pc-puma-logo.png`}
+                    alt="Logo Oficial PC PUMA - Programa de Conectividad Móvil"
+                    className="h-20 sm:h-24 md:h-28 w-auto object-contain mix-blend-multiply drop-shadow-xs hover:scale-105 transition-transform"
+                  />
                 </div>
 
                 {/* Main Hero Title */}
