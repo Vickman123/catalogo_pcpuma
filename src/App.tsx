@@ -1,28 +1,142 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { EQUIPMENT_CATALOG } from './data/equipmentData';
 import type { Equipment } from './types/equipment';
+import type { Proposal } from './types/proposal';
 import { Header } from './components/Header';
 import { ProductCard } from './components/ProductCard';
 import { ProductDetailView } from './components/ProductDetailView';
+import { ProposalCatalogView } from './components/ProposalCatalogView';
+import { AdminProposalManager } from './components/AdminProposalManager';
 import { Footer } from './components/Footer';
-import { Search } from 'lucide-react';
+import {
+  getProposalById,
+  decodeProposalToken,
+  saveImportedProposal,
+} from './services/proposalService';
+import { Search, AlertCircle, ArrowLeft } from 'lucide-react';
 
 const BASE = import.meta.env.BASE_URL;
 
+type RouteState =
+  | { type: 'catalog' }
+  | { type: 'admin' }
+  | { type: 'proposal'; id: string };
+
+function parseCurrentRoute(): RouteState {
+  const hash = window.location.hash || '';
+  const pathname = window.location.pathname || '';
+  const search = window.location.search || '';
+
+  // Check token parameter anywhere in the URL (for cross-device link imports)
+  const fullUrl = window.location.href;
+  const tokenMatch = fullUrl.match(/[?&]tk=([a-zA-Z0-9+/=%]+)/);
+  if (tokenMatch) {
+    try {
+      const decoded = decodeProposalToken(tokenMatch[1]);
+      if (decoded) {
+        saveImportedProposal(decoded);
+      }
+    } catch {
+      // Ignore if malformed
+    }
+  }
+
+  // 1. Check hash routing (#/admin, #/admin/propuestas, #/propuesta/8f3a92b7c1d4)
+  if (hash.includes('/admin') || hash === '#admin') {
+    return { type: 'admin' };
+  }
+
+  const hashPropuestaMatch = hash.match(/#\/?propuesta\/([a-zA-Z0-9_-]+)/);
+  if (hashPropuestaMatch) {
+    return { type: 'proposal', id: hashPropuestaMatch[1] };
+  }
+
+  // 2. Check path routing (/admin, /admin/propuestas, /propuesta/8f3a92b7c1d4)
+  if (
+    pathname.endsWith('/admin') ||
+    pathname.endsWith('/admin/propuestas') ||
+    pathname.includes('/admin/')
+  ) {
+    return { type: 'admin' };
+  }
+
+  const pathPropuestaMatch = pathname.match(/\/propuesta\/([a-zA-Z0-9_-]+)/);
+  if (pathPropuestaMatch) {
+    return { type: 'proposal', id: pathPropuestaMatch[1] };
+  }
+
+  // 3. Check query param routing (?admin=true or ?propuesta=8f3a92b7c1d4)
+  const params = new URLSearchParams(search);
+  if (params.get('admin') === 'true') {
+    return { type: 'admin' };
+  }
+  const propParam = params.get('propuesta') || params.get('p');
+  if (propParam) {
+    const match = propParam.match(/propuesta\/([a-zA-Z0-9_-]+)/);
+    if (match) return { type: 'proposal', id: match[1] };
+    if (/^[a-zA-Z0-9_-]+$/.test(propParam)) return { type: 'proposal', id: propParam };
+  }
+
+  return { type: 'catalog' };
+}
+
 export function App() {
+  const [route, setRoute] = useState<RouteState>(() => parseCurrentRoute());
   const [view, setView] = useState<'catalog' | 'detail'>('catalog');
   const [selectedProduct, setSelectedProduct] = useState<Equipment | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  // Handle open 3D detail view
+  // Listen to browser navigation (hashchange & popstate)
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const parsed = parseCurrentRoute();
+      setRoute(parsed);
+      // Reset detail view when route changes
+      setView('catalog');
+      setSelectedProduct(null);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.addEventListener('hashchange', handleLocationChange);
+    window.addEventListener('popstate', handleLocationChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleLocationChange);
+      window.removeEventListener('popstate', handleLocationChange);
+    };
+  }, []);
+
+  // Handle open 3D detail view in public catalog
   const handleOpenDetail = (equipment: Equipment) => {
     setSelectedProduct(equipment);
     setView('detail');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Filtered equipment list
+  // Navigate between catalog and admin
+  const handleNavigate = useCallback((destination: 'catalog' | 'admin') => {
+    if (destination === 'admin') {
+      window.location.hash = '/admin/propuestas';
+      setRoute({ type: 'admin' });
+    } else {
+      window.location.hash = '';
+      setRoute({ type: 'catalog' });
+    }
+    setView('catalog');
+    setSelectedProduct(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const handleOpenProposalFromAdmin = useCallback((proposalId: string) => {
+    window.location.hash = `/propuesta/${proposalId}`;
+    setRoute({ type: 'proposal', id: proposalId });
+    setView('catalog');
+    setSelectedProduct(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  // Filtered equipment list for public catalog
   const filteredEquipment = useMemo(() => {
     return EQUIPMENT_CATALOG.filter((item) => {
       const matchSearch =
@@ -44,21 +158,71 @@ export function App() {
     });
   }, [searchTerm, selectedCategory]);
 
+  // Current active proposal if in proposal route
+  const currentProposal: Proposal | null = useMemo(() => {
+    if (route.type === 'proposal') {
+      return getProposalById(route.id);
+    }
+    return null;
+  }, [route]);
+
   return (
     <div className="min-h-screen flex flex-col bg-white text-slate-900">
       {/* Institutional Top Header */}
       <Header
-        activeView={view}
-        onNavigate={() => {
-          setView('catalog');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
+        activeView={
+          route.type === 'admin'
+            ? 'admin'
+            : route.type === 'proposal'
+            ? 'proposal'
+            : view
+        }
+        proposalEntity={currentProposal?.targetEntity}
+        onNavigate={handleNavigate}
       />
 
       {/* Main Content Area */}
       <main className="flex-1">
-        {/* VIEW 1: PRODUCT CATALOG */}
-        {view === 'catalog' && (
+        {/* VIEW A: ADMIN PROPOSAL MANAGER */}
+        {route.type === 'admin' && (
+          <AdminProposalManager
+            onBackToCatalog={() => handleNavigate('catalog')}
+            onOpenProposal={handleOpenProposalFromAdmin}
+          />
+        )}
+
+        {/* VIEW B: PROPOSAL CATALOG VIEW (EXCLUSIVE ENTITY PRIVATE VIEW) */}
+        {route.type === 'proposal' && (
+          <div>
+            {currentProposal ? (
+              <ProposalCatalogView proposal={currentProposal} />
+            ) : (
+              <div className="max-w-2xl mx-auto px-4 py-20 text-center space-y-6">
+                <div className="w-16 h-16 rounded-3xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mx-auto shadow-xs">
+                  <AlertCircle className="w-8 h-8" />
+                </div>
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading">
+                    Propuesta No Encontrada
+                  </h2>
+                  <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
+                    El identificador de propuesta solicitado (<span className="font-mono text-slate-800 font-semibold">{route.id}</span>) no existe o el enlace es incorrecto.
+                  </p>
+                </div>
+                <button
+                  onClick={() => handleNavigate('catalog')}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#002B7A] hover:bg-[#002261] text-white text-xs sm:text-sm font-bold shadow-md transition-all"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  <span>Ir al Catálogo Público General</span>
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* VIEW C: STANDARD PUBLIC PRODUCT CATALOG */}
+        {route.type === 'catalog' && view === 'catalog' && (
           <div>
             {/* Hero Section (Apple-style minimalism with UNAM identity) */}
             <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-white border-b border-slate-100 py-12 md:py-20 px-4 md:px-8">
@@ -204,8 +368,8 @@ export function App() {
           </div>
         )}
 
-        {/* VIEW 2: PRODUCT 3D DETAIL VIEW */}
-        {view === 'detail' && selectedProduct && (
+        {/* VIEW D: PRODUCT 3D DETAIL VIEW IN PUBLIC CATALOG */}
+        {route.type === 'catalog' && view === 'detail' && selectedProduct && (
           <ProductDetailView
             equipment={selectedProduct}
             onBack={() => setView('catalog')}
@@ -214,9 +378,10 @@ export function App() {
       </main>
 
       {/* Institutional Footer */}
-      <Footer />
+      <Footer onNavigateAdmin={() => handleNavigate('admin')} isProposal={route.type === 'proposal'} />
     </div>
   );
 }
 
 export default App;
+
