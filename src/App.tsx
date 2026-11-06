@@ -53,9 +53,8 @@ export function App() {
 
       const matchCategory =
         selectedCategory === 'all' ||
-        (selectedCategory === 'lenovo' && item.brand.toLowerCase() === 'lenovo') ||
-        (selectedCategory === 'apple' && item.brand.toLowerCase() === 'apple') ||
-        (selectedCategory === 'convertible' && item.category.toLowerCase().includes('convertible'));
+        (selectedCategory === 'chromebook' && item.id.includes('chromebook')) ||
+        (selectedCategory === 'macbook' && item.id.includes('macbook'));
 
       return matchSearch && matchCategory;
     });
@@ -135,20 +134,20 @@ export function App() {
                   </button>
 
                   <button
-                    onClick={() => setSelectedCategory('lenovo')}
+                    onClick={() => setSelectedCategory('chromebook')}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-                      selectedCategory === 'lenovo'
+                      selectedCategory === 'chromebook'
                         ? 'bg-[#002B7A] text-white shadow-xs'
                         : 'text-slate-600 hover:bg-slate-100'
                     }`}
                   >
-                    Chromebook Estándar EC-01
+                    Chromebook Estándar EC-01 (Multimarca)
                   </button>
 
                   <button
-                    onClick={() => setSelectedCategory('apple')}
+                    onClick={() => setSelectedCategory('macbook')}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-                      selectedCategory === 'apple'
+                      selectedCategory === 'macbook'
                         ? 'bg-[#002B7A] text-white shadow-xs'
                         : 'text-slate-600 hover:bg-slate-100'
                     }`}

@@ -6,17 +6,17 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
   {
     id: 'lenovo-chromebook-500e',
     slug: 'chromebook-estandar-pc-puma-ec-01-2026',
-    brand: 'Lenovo',
+    brand: 'Multimarca',
     name: 'Chromebook Estándar - PC Puma EC-01(2026)',
     commercialName: 'Chromebook Estándar - PC Puma EC-01(2026)',
     category: 'Convertible 2-en-1',
-    subCategory: 'Cómputo Móvil Educativo',
-    tagline: 'Computadora portátil convertible 2-en-1 con bisagra de 360° y pantalla táctil HD.',
-    description: 'Computadora portátil convertible 2-en-1 diseñada para uso educativo y académico. Equipada con procesador MediaTek Kompanio 540 de 8 núcleos, 8 GB de memoria RAM LPDDR5X y pantalla táctil de 11.6 pulgadas con versatilidad de rotación completa en 360 grados.',
+    subCategory: 'Estándar Técnico Multimarca',
+    tagline: 'Estándar técnico multimarca (Lenovo, ASUS, HP, etc.) convertible 2-en-1 con pantalla táctil.',
+    description: 'Clasificación y estándar técnico institucional independiente de fabricante. Contempla equipos convertibles 2-en-1 de múltiples marcas homologadas (como Lenovo, ASUS, HP, entre otras) que cumplan con la arquitectura base: procesador de 8 núcleos, 8 GB de memoria RAM LPDDR5X, pantalla táctil de 11.6 pulgadas con rotación en 360 grados y sistema ChromeOS. Unidad de referencia técnica y visual en catálogo: Lenovo Chromebook 500e.',
     imagePath: `${BASE}images/chromebook-500e.jpg`,
     model3dPath: `${BASE}models/Chromebook.glb`,
     modelFileSize: '420 KB',
-    badges: ['Convertible 360°', 'Pantalla Táctil HD', '8 GB LPDDR5X', 'MediaTek Kompanio 540', 'USB-C + HDMI'],
+    badges: ['Estándar Multimarca', 'Lenovo • ASUS • HP', 'Convertible 360°', '8 GB LPDDR5X', 'Ref: Lenovo 500e'],
     quickSpecs: {
       screen: '11.6" HD (1366 × 768) IPS Táctil 10 puntos',
       processor: 'MediaTek Kompanio 540 (8 núcleos: 2 Cortex-A78 + 6 Cortex-A55)',
@@ -29,11 +29,11 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
     sections: [
       {
         id: 'identificacion',
-        title: 'Identificación',
+        title: 'Identificación y Homologación',
         items: [
-          { label: 'Marca', value: 'Lenovo' },
-          { label: 'Modelo', value: 'Chromebook 500e 2-in-1 (11.6” MediaTek)' },
-          { label: 'Nombre en catálogo', value: 'Chromebook Estándar - PC Puma EC-01(2026)' },
+          { label: 'Clasificación técnica', value: 'Chromebook Estándar - PC Puma EC-01(2026)' },
+          { label: 'Fabricante', value: 'Multimarca (Lenovo, ASUS, HP y fabricantes homologados)' },
+          { label: 'Modelo de referencia técnica', value: 'Lenovo Chromebook 500e 2-in-1 (11.6” MediaTek)' },
           { label: 'Identificador del equipo', value: 'PC-PUMA-EC-01(2026)' },
           { label: 'Tipo de equipo', value: 'Computadora portátil convertible 2-en-1 para uso educativo e institucional' },
           { label: 'Sistema operativo', value: 'ChromeOS' },
@@ -72,7 +72,7 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         title: 'Diseño y Formato',
         items: [
           { label: 'Formato / bisagra', value: 'Convertible 360°; modos portátil, tienda, soporte y tableta' },
-          { label: 'Lápiz digital', value: 'Lenovo Integrated Pen' },
+          { label: 'Lápiz digital', value: 'Lápiz digital integrado compatible (estilo Lenovo Integrated Pen o equivalente homologado)' },
         ],
       },
       {
@@ -314,6 +314,8 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
 
 export const COMPARISON_FIELDS = [
   { key: 'category', label: 'Tipo de equipo', get: (e: Equipment) => e.sections.find(s => s.id === 'identificacion')?.items.find(i => i.label === 'Tipo de equipo')?.value || e.category },
+  { key: 'brand', label: 'Fabricante / Marca', get: (e: Equipment) => e.sections.find(s => s.id === 'identificacion')?.items.find(i => i.label === 'Fabricante' || i.label === 'Marca')?.value || e.brand },
+  { key: 'refModel', label: 'Modelo de referencia técnica', get: (e: Equipment) => e.sections.find(s => s.id === 'identificacion')?.items.find(i => i.label.includes('referencia') || i.label === 'Modelo')?.value || e.name },
   { key: 'os', label: 'Sistema operativo', get: (e: Equipment) => e.quickSpecs.os },
   { key: 'processor', label: 'Procesador', get: (e: Equipment) => e.sections.find(s => s.id === 'procesamiento')?.items.find(i => i.label === 'Procesador')?.value || e.quickSpecs.processor },
   { key: 'graphics', label: 'Gráficos', get: (e: Equipment) => e.sections.find(s => s.id === 'procesamiento')?.items.find(i => i.label === 'Gráficos')?.value || 'Integrados' },

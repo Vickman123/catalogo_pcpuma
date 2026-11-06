@@ -32,11 +32,12 @@ Permite explorar los dispositivos mediante **modelos 3D interactivos en tiempo r
 
 ## 💻 Equipos Iniciales en el Catálogo
 
-1. **Chromebook Estándar - PC Puma EC-01(2026):**
-   - Procesador MediaTek MT8183 Octa-Core.
-   - Pantalla táctil HD IPS con bisagra de 360° y cristal Corning Gorilla Glass.
-   - Certificación de grado militar MIL-STD-810G y teclado resistente a derrames.
-   - ChromeOS integrado con Google Workspace UNAM.
+1. **Chromebook Estándar - PC Puma EC-01(2026) (Multimarca):**
+   - Estándar técnico independiente de fabricante, homologado para múltiples marcas (Lenovo, ASUS, HP, etc.).
+   - Unidad de referencia técnica actual en catálogo: Lenovo Chromebook 500e 2-in-1.
+   - Procesador MediaTek Kompanio 540 de 8 núcleos y 8 GB de RAM LPDDR5X-6400.
+   - Pantalla táctil HD IPS de 11.6" con bisagra convertible de 360°.
+   - ChromeOS integrado para uso educativo e institucional.
 2. **MacBook Neo - PC Puma EC-03(2026):**
    - Chip Apple Silicon con arquitectura de memoria unificada.
    - Pantalla Liquid Retina con amplia gama de color P3 (500 nits).
