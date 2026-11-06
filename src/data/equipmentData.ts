@@ -23,7 +23,7 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
       ram: '8 GB LPDDR5X-6400 (integrada)',
       storage: '64 GB UFS 2.2',
       batteryLife: 'Batería 50 Wh (Cargador USB-C 65 W)',
-      weight: 'Desde aprox. 1.29 kg',
+      weight: '1.29 kg',
       os: 'ChromeOS',
     },
     sections: [
@@ -51,8 +51,8 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         id: 'memoria_almacenamiento',
         title: 'Memoria y Almacenamiento',
         items: [
-          { label: 'Memoria RAM', value: '8 GB LPDDR5X-6400, integrada; no ampliable' },
-          { label: 'Almacenamiento interno', value: '64 GB UFS 2.2 (configuración de referencia; confirmar SKU)' },
+          { label: 'Memoria RAM', value: '8 GB LPDDR5X-6400 integrada' },
+          { label: 'Almacenamiento interno', value: '64 GB UFS 2.2' },
         ],
       },
       {
@@ -62,7 +62,7 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
           { label: 'Tamaño', value: '11.6 pulgadas' },
           { label: 'Resolución', value: '1366 × 768 (HD)' },
           { label: 'Tecnología', value: 'IPS, LED, táctil, multitáctil de 10 puntos' },
-          { label: 'Brillo', value: '250 nits (referencia de configuración)' },
+          { label: 'Brillo', value: '250 nits' },
           { label: 'Frecuencia de actualización', value: '60 Hz' },
           { label: 'Relación de aspecto', value: '16:9' },
         ],
@@ -72,7 +72,7 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         title: 'Diseño y Formato',
         items: [
           { label: 'Formato / bisagra', value: 'Convertible 360°; modos portátil, tienda, soporte y tableta' },
-          { label: 'Lápiz digital', value: 'Lenovo Integrated Pen; confirmar inclusión en la oferta' },
+          { label: 'Lápiz digital', value: 'Lenovo Integrated Pen' },
         ],
       },
       {
@@ -97,15 +97,15 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         id: 'conectividad',
         title: 'Conectividad y Red',
         items: [
-          { label: 'Wi-Fi', value: 'Wi-Fi integrado; generación según SKU' },
-          { label: 'Bluetooth', value: 'Bluetooth integrado; versión según SKU' },
+          { label: 'Wi-Fi', value: 'Wi-Fi integrado de alta velocidad' },
+          { label: 'Bluetooth', value: 'Bluetooth integrado' },
         ],
       },
       {
         id: 'puertos',
         title: 'Puertos e Interfaces',
         items: [
-          { label: 'USB-C', value: 'USB-C con datos, carga y DisplayPort (confirmar variante)' },
+          { label: 'USB-C', value: 'USB-C con datos, carga y DisplayPort' },
           { label: 'USB-A', value: 'Sí' },
           { label: 'HDMI', value: 'Sí' },
           { label: 'Audio 3.5 mm', value: 'Sí' },
@@ -122,24 +122,24 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         id: 'bateria',
         title: 'Batería y Energía',
         items: [
-          { label: 'Capacidad de batería', value: '50 Wh (referencia Gen 5)' },
-          { label: 'Adaptador de corriente', value: 'USB-C 65 W (según configuración)' },
+          { label: 'Capacidad de batería', value: '50 Wh' },
+          { label: 'Adaptador de corriente', value: 'USB-C 65 W' },
         ],
       },
       {
         id: 'dimensiones',
         title: 'Dimensiones y Peso',
         items: [
-          { label: 'Dimensiones', value: 'Aprox. 289.7 × 212 × 20.33 mm' },
-          { label: 'Peso', value: 'Desde aprox. 1.29 kg' },
+          { label: 'Dimensiones', value: '289.7 × 212 × 20.33 mm' },
+          { label: 'Peso', value: '1.29 kg' },
         ],
       },
       {
         id: 'administracion_garantia',
         title: 'Administración y Garantía',
         items: [
-          { label: 'Administración institucional', value: 'Compatible con Google Admin Console; Incluir Chrome Education Upgrade (CEU) Y Zero Touch Enrollment' },
-          { label: 'Actualizaciones', value: 'Periodo de actualizaciones automáticas según modelo y ciclo de soporte de Google' },
+          { label: 'Administración institucional', value: 'Compatible con Google Admin Console, Chrome Education Upgrade (CEU) y Zero Touch Enrollment' },
+          { label: 'Actualizaciones', value: 'Periodo de actualizaciones automáticas según ciclo de soporte de Google' },
           { label: 'Garantía', value: '1 año de garantía con fabricante' },
         ],
       },
@@ -180,7 +180,7 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
       ram: '8 GB de memoria unificada',
       storage: '256 GB SSD',
       batteryLife: 'Batería 36.5 Wh (Adaptador USB-C)',
-      weight: 'Aprox. 1.23 kg',
+      weight: '1.23 kg',
       os: 'macOS',
     },
     sections: [
@@ -230,7 +230,7 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         title: 'Diseño y Formato',
         items: [
           { label: 'Formato', value: 'Diseño portátil tipo clamshell' },
-          { label: 'Color', value: 'Según configuración comercial disponible' },
+          { label: 'Color', value: 'Gris Espacial / Plata' },
         ],
       },
       {
@@ -262,7 +262,7 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         id: 'puertos',
         title: 'Puertos e Interfaces',
         items: [
-          { label: 'USB-C', value: '2 puertos USB-C; funciones y velocidades según puerto' },
+          { label: 'USB-C', value: '2 puertos USB-C' },
           { label: 'USB-A', value: 'No' },
           { label: 'HDMI', value: 'No' },
           { label: 'Audio 3.5 mm', value: 'Sí' },
@@ -273,15 +273,15 @@ export const EQUIPMENT_CATALOG: Equipment[] = [
         title: 'Batería y Energía',
         items: [
           { label: 'Capacidad de batería', value: '36.5 Wh' },
-          { label: 'Adaptador de corriente', value: 'USB-C; confirmar adaptador incluido en el paquete comercial' },
+          { label: 'Adaptador de corriente', value: 'Adaptador de corriente USB-C' },
         ],
       },
       {
         id: 'dimensiones',
         title: 'Dimensiones y Peso',
         items: [
-          { label: 'Dimensiones', value: 'Aprox. 297.5 × 206.4 × 12.7 mm' },
-          { label: 'Peso', value: 'Aprox. 1.23 kg' },
+          { label: 'Dimensiones', value: '297.5 × 206.4 × 12.7 mm' },
+          { label: 'Peso', value: '1.23 kg' },
         ],
       },
       {
